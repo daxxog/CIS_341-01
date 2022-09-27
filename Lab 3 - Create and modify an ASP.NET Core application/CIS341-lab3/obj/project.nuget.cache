@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "Yr4K/THZcjPWhlatMMx5MK1usdXBtffyJGJUyhqKmB/NOksjhXjKhbG/srtU6e0sYVjOv86yP6yBDO9HnC/MKQ==",
+  "success": true,
+  "projectFilePath": "/home/daxxog/dev/git/CIS_341-01/Lab 3 - Create and modify an ASP.NET Core application/CIS341-lab3/CIS341-lab3.csproj",
+  "expectedPackageFiles": [
+    "/home/daxxog/.nuget/packages/microsoft.netcore.app.ref/6.0.8/microsoft.netcore.app.ref.6.0.8.nupkg.sha512"
+  ],
+  "logs": []
+}
