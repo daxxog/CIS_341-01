@@ -1,7 +1,7 @@
 #!/bin/bash
 _ALL=""
 set -x
-rm cleanupcode.Makefile
+rm -f cleanupcode.Makefile
 for source_code in $(find . | grep -v './obj' | grep '.cs' | grep -v '.csproj' | grep -v 'wwwroot/lib'); do
     _ID=$(uuidgen)
     _ALL="${_ID} ${_ALL}"
