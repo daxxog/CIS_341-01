@@ -13,7 +13,8 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
-app.UseHttpsRedirection();
+// HTTPS redirection is both annoying and unnecessary for local development
+// app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
