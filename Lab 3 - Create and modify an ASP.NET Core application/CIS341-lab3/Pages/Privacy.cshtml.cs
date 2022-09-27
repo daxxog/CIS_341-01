@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using System.Globalization;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace CIS341_lab3.Pages;
@@ -14,5 +14,7 @@ public class PrivacyModel : PageModel
 
     public void OnGet()
     {
+        string dateTime = DateTime.Now.ToString("d", new CultureInfo("en-US"));
+        ViewData["TimeStamp"] = dateTime;
     }
 }
