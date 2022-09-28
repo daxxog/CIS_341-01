@@ -2,3 +2,22 @@
 @model CIS341_lab3.Pages.ContactModel
 @{
 }
+
+<h1>Contact Form</h1>
+<form method="POST">
+    <div>
+        <label for="name">Name:</label> <br>
+        <input type="text" name="name" id="name"></input>
+    </div>
+    <div>
+        <label for="email">Email Address:</label> <br>
+        <input type="text" name="email" id="email"></input>
+    </div>
+    <div>
+        <label for="message">Message:</label> <br>
+        <textarea name="message" id="message"></textarea>
+    </div>
+    <div>
+        <input type="submit"></input>
+    </div>
+</form>
