@@ -4,18 +4,18 @@
 }
 
 <h1>Contact Form</h1>
-<form method="POST">
+<form method="POST" asp-action="Contact">
     <div>
-        <label for="name">Name:</label> <br>
-        <input type="text" name="name" id="name"></input>
+        <label for="ContactForm_Name">Name:</label> <br>
+        <input asp-for="ContactForm.Name"></input>
     </div>
     <div>
-        <label for="email">Email Address:</label> <br>
-        <input type="text" name="email" id="email"></input>
+        <label for="ContactForm_Email">Email Address:</label> <br>
+        <input asp-for="ContactForm.Email"></input>
     </div>
     <div>
-        <label for="message">Message:</label> <br>
-        <textarea name="message" id="message"></textarea>
+        <label for="ContactForm_Message">Message:</label> <br>
+        <textarea asp-for="ContactForm.Message"></textarea>
     </div>
     <div>
         <input type="submit"></input>
