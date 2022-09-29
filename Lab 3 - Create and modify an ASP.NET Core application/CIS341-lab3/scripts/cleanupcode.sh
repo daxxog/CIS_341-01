@@ -2,7 +2,7 @@
 _ALL=""
 set -x
 rm -f cleanupcode.Makefile
-for source_code in $(find . | grep -v './obj' | grep '.cs' | grep -v '.csproj' | grep -v 'wwwroot/lib'); do
+for source_code in $(find . | grep -v './obj' | grep -v './bin' | grep '.cs' | grep -v '.csproj' | grep -v 'wwwroot/lib'); do
     _ID=$(uuidgen)
     _ALL="${_ID} ${_ALL}"
     printf ".PHONY: ${_ID}\n" | tee -a cleanupcode.Makefile
