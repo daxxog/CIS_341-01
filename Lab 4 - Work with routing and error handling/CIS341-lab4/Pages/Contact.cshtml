@@ -1,0 +1,23 @@
+﻿@page
+@model CIS341_lab3.Pages.ContactModel
+@{
+}
+
+<h1>Contact Form</h1>
+<form method="POST" asp-action="Contact">
+    <div>
+        <label for="ContactForm_Name">Name:</label> <br>
+        <input asp-for="ContactForm.Name"></input>
+    </div>
+    <div>
+        <label for="ContactForm_Email">Email Address:</label> <br>
+        <input asp-for="ContactForm.Email"></input>
+    </div>
+    <div>
+        <label for="ContactForm_Message">Message:</label> <br>
+        <textarea asp-for="ContactForm.Message"></textarea>
+    </div>
+    <div>
+        <input type="submit"></input>
+    </div>
+</form>
