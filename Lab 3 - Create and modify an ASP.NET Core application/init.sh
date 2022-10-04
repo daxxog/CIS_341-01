@@ -1,3 +1,9 @@
 #!/bin/bash
 set -x
-dotnet new razor --name "CIS341-lab3"
+PROJECT_NAME="CIS341-lab3"
+dotnet new razor --name "${PROJECT_NAME}"
+cat ./${PROJECT_NAME}/Program.cs | \
+    sed 's/app.UseHttpsRedirection\(\)\;/\/\/ app.UseHttpsRedirection\(\)\; \/\/ nahh/g' | \
+    tee ./${PROJECT_NAME}/_Program.cs \
+    && mv ./${PROJECT_NAME}/_Program.cs ./${PROJECT_NAME}/Program.cs \
+;
