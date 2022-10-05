@@ -18,6 +18,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+
+app.UseStatusCodePagesWithRedirects("/StatusCode/{0}");
+
 app.UseAuthorization();
 
 app.MapRazorPages();
