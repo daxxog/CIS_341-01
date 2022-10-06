@@ -1,5 +1,10 @@
 var builder = WebApplication.CreateBuilder(args);
 
+// needed for basic logging
+// https://learn.microsoft.com/en-us/aspnet/core/fundamentals/logging/?view=aspnetcore-6.0
+builder.Logging.ClearProviders();
+builder.Logging.AddConsole();
+
 // Add services to the container.
 builder.Services.AddRazorPages();
 
@@ -19,6 +24,7 @@ app.UseStaticFiles();
 app.UseRouting();
 
 
+// status code redirection middleware
 app.UseStatusCodePagesWithRedirects("/StatusCode/{0}");
 
 app.UseAuthorization();

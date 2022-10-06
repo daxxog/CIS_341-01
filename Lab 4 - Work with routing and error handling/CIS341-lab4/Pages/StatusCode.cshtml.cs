@@ -13,6 +13,13 @@ namespace CIS341_lab4.Pages
 
         public string? OriginalPathAndQuery { get; set; }
 
+        private readonly ILogger _logger;
+
+        public StatusCodeModel(ILogger<StatusCodeModel> logger)
+        {
+            _logger = logger;
+        }
+
         public void OnGet(int statusCode)
         {
             OriginalStatusCode = statusCode;
@@ -37,6 +44,19 @@ namespace CIS341_lab4.Pages
             {
                 ViewData["Message"] = $"This is a status code {statusCode} page.";
             }
+
+            // arguably this could be _logger.LogWarning or some other higher level
+            // but to me this just seems informational, as users could be hitting these status code pages all the time,
+            // and the information can be filtered down to this class anyways because it is annotated ILogger<StatusCodeModel>
+            // ----
+            // OriginalPathAndQuery only seems to work with UseStatusCodePagesWithReExecute, so we don't use it here,
+            // and I don't think I need it anyways because:
+            //
+            // the lab says "Include at least the client's user agent information, the requested URL, and the HTTP status code."
+            // which doesn't really says "which" requested URL (original, or status code page) so I think we are good here
+            var requestedURL = $"{Request.Scheme}://{Request.Host}{Request.Path}{Request.QueryString}";
+            _logger.LogInformation(
+                $"UserAgent={Request.Headers.UserAgent}, requestedURL={requestedURL}, statusCode={statusCode},");
         }
     }
 }
