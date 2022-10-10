@@ -1,1 +1,1 @@
-dotnet-aspnet-codegenerator view FAQ Empty --relativeFolderPath Views
+dotnet-aspnet-codegenerator view Index Empty --relativeFolderPath Views/FAQ
