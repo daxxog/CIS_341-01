@@ -1,1 +1,2 @@
+dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 6.0.10
 dotnet-aspnet-codegenerator controller --controllerName ContactController --model CIS341_lab3.Entities.Contact --useSqlite --dataContext DbContext --noViews --controllerNamespace CIS341_lab3.Controllers --relativeFolderPath Controllers
