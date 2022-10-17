@@ -1,7 +1,10 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace mvc.Models;
 
 public class TodoItem {
-    public int Id;
+    [Key]
+    public int Id { get; set; }
     public string Message;
     public string Title;
     public bool Checked;

@@ -6,4 +6,4 @@ dotnet-aspnet-codegenerator controller --controllerName FAQController --relative
 # with entity
 dotnet-aspnet-codegenerator controller --controllerName ContactController --model CIS341_lab3.Entities.Contact --useSqlite --dataContext DbContext --noViews --controllerNamespace CIS341_lab3.Controllers --relativeFolderPath Controllers
 # with entity and crud
-
+dotnet-aspnet-codegenerator controller --controllerName TodoItemController --model mvc.Models.TodoItem --useSqlite --dataContext DbContext --controllerNamespace mvc.Controllers --relativeFolderPath Controllers --useAsyncActions

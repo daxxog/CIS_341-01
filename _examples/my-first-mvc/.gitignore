@@ -2,3 +2,4 @@ bin/
 obj/
 **/wwwroot/lib
 cleanupcode.Makefile
+.db
