@@ -1,9 +1,9 @@
 #!/bin/bash
 set -x
-SOURCE_LAB="Lab 3 - Create and modify an ASP.NET Core application"
-SOURCE_PROJ="CIS341-lab3"
-DEST_LAB="Lab 4 - Work with routing and error handling"
-DEST_PROJ="CIS341-lab4"
+SOURCE_LAB="Lab 4 - Work with routing and error handling"
+SOURCE_PROJ="CIS341-lab4"
+DEST_LAB="Lab 5 - Implement Controller structure"
+DEST_PROJ="CIS341-lab5"
 
 git clean -fdx
 mv \
