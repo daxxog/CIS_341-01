@@ -16,6 +16,8 @@ namespace CIS341_lab5.Data
         public SqliteContext(DbContextOptions<SqliteContext> options)
             : base(options)
         {
+            // https://stackoverflow.com/a/50042017
+            Database.EnsureCreated();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
