@@ -5,5 +5,6 @@ dotnet add package Microsoft.VisualStudio.Web.CodeGeneration.Design --version 6.
 dotnet-aspnet-codegenerator controller --controllerName FAQController --relativeFolderPath Controllers
 # with entity
 dotnet-aspnet-codegenerator controller --controllerName ContactController --model CIS341_lab3.Entities.Contact --useSqlite --dataContext DbContext --noViews --controllerNamespace CIS341_lab3.Controllers --relativeFolderPath Controllers
+dotnet-aspnet-codegenerator controller --controllerName TagController --model CIS341_lab5.Models.TagModel --useSqlite --dataContext SqliteContext --controllerNamespace CIS341_lab5.Controllers --relativeFolderPath Controllers -f
 # with entity and crud
 dotnet-aspnet-codegenerator controller --controllerName TodoItemController --model mvc.Models.TodoItem --useSqlite --dataContext DbContext --controllerNamespace mvc.Controllers --relativeFolderPath Controllers --useAsyncActions
