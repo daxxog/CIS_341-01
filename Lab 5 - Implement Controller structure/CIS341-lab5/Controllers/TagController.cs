@@ -12,7 +12,8 @@ namespace CIS341_lab5.Controllers
         {
         }
 
-        // GET: Tag
+        // GET: Tags
+        [Route("/Tags")]
         public async Task<IActionResult> Index()
         {
             return View();

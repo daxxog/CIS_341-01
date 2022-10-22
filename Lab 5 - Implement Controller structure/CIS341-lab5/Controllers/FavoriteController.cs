@@ -19,7 +19,8 @@ namespace CIS341_lab5.Controllers
             _context = context;
         }
 
-        // GET: Favorite
+        // GET: Favorites
+        [Route("/Favorites")]
         public async Task<IActionResult> Index()
         {
             var sqliteContext = _context.Favorites.Include(f => f.InformationItemSharedInformationItem)
