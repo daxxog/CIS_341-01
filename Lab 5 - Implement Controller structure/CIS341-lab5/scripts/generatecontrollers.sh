@@ -19,6 +19,7 @@ for controller in $(ls Data/Entities | sed 's/.cs//g'); do
         -sqlite \
         -async \
         -dc SqliteContext \
+        --layout _Layout \
         -namespace ${_CONTROLLER_NS} \
     ;
 done
