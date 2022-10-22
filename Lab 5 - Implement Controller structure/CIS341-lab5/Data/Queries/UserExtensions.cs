@@ -12,13 +12,15 @@ namespace CIS341_lab5.Data.Queries
     public static partial class UserExtensions
     {
         #region Generated Extensions
+
         /// <summary>
         /// Gets an instance by the primary key.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
         /// <param name="id">The value to filter by.</param>
         /// <returns>An instance of <see cref="T:CIS341_lab5.Data.Entities.User"/> or null if not found.</returns>
-        public static CIS341_lab5.Data.Entities.User GetByKey(this IQueryable<CIS341_lab5.Data.Entities.User> queryable, long id)
+        public static CIS341_lab5.Data.Entities.User GetByKey(this IQueryable<CIS341_lab5.Data.Entities.User> queryable,
+            long id)
         {
             if (queryable is DbSet<CIS341_lab5.Data.Entities.User> dbSet)
                 return dbSet.Find(id);
@@ -32,7 +34,8 @@ namespace CIS341_lab5.Data.Queries
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
         /// <param name="id">The value to filter by.</param>
         /// <returns>An instance of <see cref="T:CIS341_lab5.Data.Entities.User"/> or null if not found.</returns>
-        public static ValueTask<CIS341_lab5.Data.Entities.User> GetByKeyAsync(this IQueryable<CIS341_lab5.Data.Entities.User> queryable, long id)
+        public static ValueTask<CIS341_lab5.Data.Entities.User> GetByKeyAsync(
+            this IQueryable<CIS341_lab5.Data.Entities.User> queryable, long id)
         {
             if (queryable is DbSet<CIS341_lab5.Data.Entities.User> dbSet)
                 return dbSet.FindAsync(id);
@@ -42,6 +45,5 @@ namespace CIS341_lab5.Data.Queries
         }
 
         #endregion
-
     }
 }

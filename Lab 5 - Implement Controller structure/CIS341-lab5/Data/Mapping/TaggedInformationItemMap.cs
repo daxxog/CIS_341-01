@@ -14,9 +14,12 @@ namespace CIS341_lab5.Data.Mapping
         /// Configures the entity of type <see cref="CIS341_lab5.Data.Entities.TaggedInformationItem" />
         /// </summary>
         /// <param name="builder">The builder to be used to configure the entity type.</param>
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<CIS341_lab5.Data.Entities.TaggedInformationItem> builder)
+        public void Configure(
+            Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<
+                CIS341_lab5.Data.Entities.TaggedInformationItem> builder)
         {
             #region Generated Configure
+
             // table
             builder.ToTable("tagged_information_item");
 
@@ -44,10 +47,12 @@ namespace CIS341_lab5.Data.Mapping
         }
 
         #region Generated Constants
+
         public struct Table
         {
             /// <summary>Table Schema name constant for entity <see cref="CIS341_lab5.Data.Entities.TaggedInformationItem" /></summary>
             public const string Schema = "";
+
             /// <summary>Table Name constant for entity <see cref="CIS341_lab5.Data.Entities.TaggedInformationItem" /></summary>
             public const string Name = "tagged_information_item";
         }
@@ -56,9 +61,11 @@ namespace CIS341_lab5.Data.Mapping
         {
             /// <summary>Column Name constant for property <see cref="CIS341_lab5.Data.Entities.TaggedInformationItem.TagName" /></summary>
             public const string TagName = "tag_name";
+
             /// <summary>Column Name constant for property <see cref="CIS341_lab5.Data.Entities.TaggedInformationItem.InformationItemId" /></summary>
             public const string InformationItemId = "information_item_id";
         }
+
         #endregion
     }
 }

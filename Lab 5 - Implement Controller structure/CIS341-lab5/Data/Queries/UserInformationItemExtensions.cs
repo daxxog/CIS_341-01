@@ -12,13 +12,15 @@ namespace CIS341_lab5.Data.Queries
     public static partial class UserInformationItemExtensions
     {
         #region Generated Extensions
+
         /// <summary>
         /// Gets an instance by the primary key.
         /// </summary>
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
         /// <param name="id">The value to filter by.</param>
         /// <returns>An instance of <see cref="T:CIS341_lab5.Data.Entities.UserInformationItem"/> or null if not found.</returns>
-        public static CIS341_lab5.Data.Entities.UserInformationItem GetByKey(this IQueryable<CIS341_lab5.Data.Entities.UserInformationItem> queryable, long id)
+        public static CIS341_lab5.Data.Entities.UserInformationItem GetByKey(
+            this IQueryable<CIS341_lab5.Data.Entities.UserInformationItem> queryable, long id)
         {
             if (queryable is DbSet<CIS341_lab5.Data.Entities.UserInformationItem> dbSet)
                 return dbSet.Find(id);
@@ -32,7 +34,8 @@ namespace CIS341_lab5.Data.Queries
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
         /// <param name="id">The value to filter by.</param>
         /// <returns>An instance of <see cref="T:CIS341_lab5.Data.Entities.UserInformationItem"/> or null if not found.</returns>
-        public static ValueTask<CIS341_lab5.Data.Entities.UserInformationItem> GetByKeyAsync(this IQueryable<CIS341_lab5.Data.Entities.UserInformationItem> queryable, long id)
+        public static ValueTask<CIS341_lab5.Data.Entities.UserInformationItem> GetByKeyAsync(
+            this IQueryable<CIS341_lab5.Data.Entities.UserInformationItem> queryable, long id)
         {
             if (queryable is DbSet<CIS341_lab5.Data.Entities.UserInformationItem> dbSet)
                 return dbSet.FindAsync(id);
@@ -47,12 +50,12 @@ namespace CIS341_lab5.Data.Queries
         /// <param name="queryable">An <see cref="T:System.Linq.IQueryable`1" /> to filter.</param>
         /// <param name="userId">The value to filter by.</param>
         /// <returns>An <see cref="T: System.Linq.IQueryable`1" /> that contains elements from the input sequence that satisfy the condition specified.</returns>
-        public static IQueryable<CIS341_lab5.Data.Entities.UserInformationItem> ByUserId(this IQueryable<CIS341_lab5.Data.Entities.UserInformationItem> queryable, long userId)
+        public static IQueryable<CIS341_lab5.Data.Entities.UserInformationItem> ByUserId(
+            this IQueryable<CIS341_lab5.Data.Entities.UserInformationItem> queryable, long userId)
         {
             return queryable.Where(q => q.UserId == userId);
         }
 
         #endregion
-
     }
 }

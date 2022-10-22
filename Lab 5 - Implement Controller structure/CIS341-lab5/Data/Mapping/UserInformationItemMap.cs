@@ -14,9 +14,12 @@ namespace CIS341_lab5.Data.Mapping
         /// Configures the entity of type <see cref="CIS341_lab5.Data.Entities.UserInformationItem" />
         /// </summary>
         /// <param name="builder">The builder to be used to configure the entity type.</param>
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<CIS341_lab5.Data.Entities.UserInformationItem> builder)
+        public void Configure(
+            Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<
+                CIS341_lab5.Data.Entities.UserInformationItem> builder)
         {
             #region Generated Configure
+
             // table
             builder.ToTable("user_information_item");
 
@@ -53,10 +56,12 @@ namespace CIS341_lab5.Data.Mapping
         }
 
         #region Generated Constants
+
         public struct Table
         {
             /// <summary>Table Schema name constant for entity <see cref="CIS341_lab5.Data.Entities.UserInformationItem" /></summary>
             public const string Schema = "";
+
             /// <summary>Table Name constant for entity <see cref="CIS341_lab5.Data.Entities.UserInformationItem" /></summary>
             public const string Name = "user_information_item";
         }
@@ -65,13 +70,17 @@ namespace CIS341_lab5.Data.Mapping
         {
             /// <summary>Column Name constant for property <see cref="CIS341_lab5.Data.Entities.UserInformationItem.Id" /></summary>
             public const string Id = "id";
+
             /// <summary>Column Name constant for property <see cref="CIS341_lab5.Data.Entities.UserInformationItem.UserId" /></summary>
             public const string UserId = "user_id";
+
             /// <summary>Column Name constant for property <see cref="CIS341_lab5.Data.Entities.UserInformationItem.Title" /></summary>
             public const string Title = "title";
+
             /// <summary>Column Name constant for property <see cref="CIS341_lab5.Data.Entities.UserInformationItem.Details" /></summary>
             public const string Details = "details";
         }
+
         #endregion
     }
 }

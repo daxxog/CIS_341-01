@@ -14,10 +14,12 @@ namespace CIS341_lab5.Data.Entities
         public UserInformationItem()
         {
             #region Generated Constructor
+
             #endregion
         }
 
         #region Generated Properties
+
         /// <summary>
         /// Gets or sets the property value representing column 'id'.
         /// </summary>
@@ -53,6 +55,7 @@ namespace CIS341_lab5.Data.Entities
         #endregion
 
         #region Generated Relationships
+
         /// <summary>
         /// Gets or sets the navigation property for entity <see cref="User" />.
         /// </summary>
@@ -63,6 +66,5 @@ namespace CIS341_lab5.Data.Entities
         public virtual User User { get; set; }
 
         #endregion
-
     }
 }

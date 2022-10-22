@@ -14,10 +14,12 @@ namespace CIS341_lab5.Data.Entities
         public TaggedInformationItem()
         {
             #region Generated Constructor
+
             #endregion
         }
 
         #region Generated Properties
+
         /// <summary>
         /// Gets or sets the property value representing column 'tag_name'.
         /// </summary>
@@ -37,6 +39,7 @@ namespace CIS341_lab5.Data.Entities
         #endregion
 
         #region Generated Relationships
+
         /// <summary>
         /// Gets or sets the navigation property for entity <see cref="SharedInformationItem" />.
         /// </summary>
@@ -47,6 +50,5 @@ namespace CIS341_lab5.Data.Entities
         public virtual SharedInformationItem InformationItemSharedInformationItem { get; set; }
 
         #endregion
-
     }
 }

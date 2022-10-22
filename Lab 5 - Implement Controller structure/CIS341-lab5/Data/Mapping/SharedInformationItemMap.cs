@@ -14,9 +14,12 @@ namespace CIS341_lab5.Data.Mapping
         /// Configures the entity of type <see cref="CIS341_lab5.Data.Entities.SharedInformationItem" />
         /// </summary>
         /// <param name="builder">The builder to be used to configure the entity type.</param>
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<CIS341_lab5.Data.Entities.SharedInformationItem> builder)
+        public void Configure(
+            Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<
+                CIS341_lab5.Data.Entities.SharedInformationItem> builder)
         {
             #region Generated Configure
+
             // table
             builder.ToTable("shared_information_item");
 
@@ -40,14 +43,17 @@ namespace CIS341_lab5.Data.Mapping
                 .HasColumnType("VARCHAR");
 
             // relationships
+
             #endregion
         }
 
         #region Generated Constants
+
         public struct Table
         {
             /// <summary>Table Schema name constant for entity <see cref="CIS341_lab5.Data.Entities.SharedInformationItem" /></summary>
             public const string Schema = "";
+
             /// <summary>Table Name constant for entity <see cref="CIS341_lab5.Data.Entities.SharedInformationItem" /></summary>
             public const string Name = "shared_information_item";
         }
@@ -56,11 +62,14 @@ namespace CIS341_lab5.Data.Mapping
         {
             /// <summary>Column Name constant for property <see cref="CIS341_lab5.Data.Entities.SharedInformationItem.Id" /></summary>
             public const string Id = "id";
+
             /// <summary>Column Name constant for property <see cref="CIS341_lab5.Data.Entities.SharedInformationItem.Title" /></summary>
             public const string Title = "title";
+
             /// <summary>Column Name constant for property <see cref="CIS341_lab5.Data.Entities.SharedInformationItem.Details" /></summary>
             public const string Details = "details";
         }
+
         #endregion
     }
 }

@@ -14,9 +14,11 @@ namespace CIS341_lab5.Data.Mapping
         /// Configures the entity of type <see cref="CIS341_lab5.Data.Entities.User" />
         /// </summary>
         /// <param name="builder">The builder to be used to configure the entity type.</param>
-        public void Configure(Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<CIS341_lab5.Data.Entities.User> builder)
+        public void Configure(
+            Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder<CIS341_lab5.Data.Entities.User> builder)
         {
             #region Generated Configure
+
             // table
             builder.ToTable("user");
 
@@ -45,14 +47,17 @@ namespace CIS341_lab5.Data.Mapping
                 .HasColumnType("BOOLEAN");
 
             // relationships
+
             #endregion
         }
 
         #region Generated Constants
+
         public struct Table
         {
             /// <summary>Table Schema name constant for entity <see cref="CIS341_lab5.Data.Entities.User" /></summary>
             public const string Schema = "";
+
             /// <summary>Table Name constant for entity <see cref="CIS341_lab5.Data.Entities.User" /></summary>
             public const string Name = "user";
         }
@@ -61,13 +66,17 @@ namespace CIS341_lab5.Data.Mapping
         {
             /// <summary>Column Name constant for property <see cref="CIS341_lab5.Data.Entities.User.Id" /></summary>
             public const string Id = "id";
+
             /// <summary>Column Name constant for property <see cref="CIS341_lab5.Data.Entities.User.Email" /></summary>
             public const string Email = "email";
+
             /// <summary>Column Name constant for property <see cref="CIS341_lab5.Data.Entities.User.PasswordHash" /></summary>
             public const string PasswordHash = "password_hash";
+
             /// <summary>Column Name constant for property <see cref="CIS341_lab5.Data.Entities.User.ContentManager" /></summary>
             public const string ContentManager = "content_manager";
         }
+
         #endregion
     }
 }

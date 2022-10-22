@@ -18,7 +18,13 @@ namespace CIS341_lab5.Data
         {
         }
 
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSqlite("Filename=sqlite.db");
+        }
+
         #region Generated Properties
+
         /// <summary>
         /// Gets or sets the <see cref="T:Microsoft.EntityFrameworkCore.DbSet`1" /> that can be used to query and save instances of <see cref="CIS341_lab5.Data.Entities.Favorite"/>.
         /// </summary>
@@ -68,11 +74,13 @@ namespace CIS341_lab5.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             #region Generated Configuration
+
             modelBuilder.ApplyConfiguration(new CIS341_lab5.Data.Mapping.FavoriteMap());
             modelBuilder.ApplyConfiguration(new CIS341_lab5.Data.Mapping.SharedInformationItemMap());
             modelBuilder.ApplyConfiguration(new CIS341_lab5.Data.Mapping.TaggedInformationItemMap());
             modelBuilder.ApplyConfiguration(new CIS341_lab5.Data.Mapping.UserInformationItemMap());
             modelBuilder.ApplyConfiguration(new CIS341_lab5.Data.Mapping.UserMap());
+
             #endregion
         }
     }

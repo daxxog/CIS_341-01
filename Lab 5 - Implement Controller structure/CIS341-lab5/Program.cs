@@ -1,7 +1,10 @@
+using CIS341_lab5.Data;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddDbContext<SqliteContext>();
 
 var app = builder.Build();
 

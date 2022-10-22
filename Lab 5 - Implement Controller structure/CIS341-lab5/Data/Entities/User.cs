@@ -14,12 +14,15 @@ namespace CIS341_lab5.Data.Entities
         public User()
         {
             #region Generated Constructor
+
             Favorites = new HashSet<Favorite>();
             UserInformationItems = new HashSet<UserInformationItem>();
+
             #endregion
         }
 
         #region Generated Properties
+
         /// <summary>
         /// Gets or sets the property value representing column 'id'.
         /// </summary>
@@ -55,6 +58,7 @@ namespace CIS341_lab5.Data.Entities
         #endregion
 
         #region Generated Relationships
+
         /// <summary>
         /// Gets or sets the navigation collection for entity <see cref="Favorite" />.
         /// </summary>
@@ -72,6 +76,5 @@ namespace CIS341_lab5.Data.Entities
         public virtual ICollection<UserInformationItem> UserInformationItems { get; set; }
 
         #endregion
-
     }
 }
