@@ -14,3 +14,6 @@ printf ".PHONY: cleanupcode\n" | tee -a cleanupcode.Makefile
 printf "cleanupcode: ${_ALL}\n" | tee -a cleanupcode.Makefile
 cat cleanupcode.Makefile
 make -f cleanupcode.Makefile cleanupcode -j$(nproc)
+
+# cleanupcode breaks Index views
+for view in Views/*/Index.cshtml; do git restore $view; done
