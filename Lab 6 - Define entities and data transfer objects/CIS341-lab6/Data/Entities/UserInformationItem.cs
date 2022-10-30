@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CIS341_lab6.Data.Entities
 {
@@ -26,6 +27,7 @@ namespace CIS341_lab6.Data.Entities
         /// <value>
         /// The property value representing column 'id'.
         /// </value>
+        [Display(Name = "Information Item ID")]
         public long Id { get; set; }
 
         /// <summary>
@@ -34,6 +36,7 @@ namespace CIS341_lab6.Data.Entities
         /// <value>
         /// The property value representing column 'user_id'.
         /// </value>
+        [Display(Name = "User ID")]
         public long UserId { get; set; }
 
         /// <summary>
@@ -42,6 +45,7 @@ namespace CIS341_lab6.Data.Entities
         /// <value>
         /// The property value representing column 'title'.
         /// </value>
+        [Display(Name = "Title")]
         public string Title { get; set; }
 
         /// <summary>
@@ -50,6 +54,7 @@ namespace CIS341_lab6.Data.Entities
         /// <value>
         /// The property value representing column 'details'.
         /// </value>
+        [Display(Name = "Details")]
         public string Details { get; set; }
 
         #endregion
@@ -63,6 +68,7 @@ namespace CIS341_lab6.Data.Entities
         /// The the navigation property for entity <see cref="User" />.
         /// </value>
         /// <seealso cref="UserId" />
+        [Display(Name = "User")]
         public virtual User User { get; set; }
 
         #endregion

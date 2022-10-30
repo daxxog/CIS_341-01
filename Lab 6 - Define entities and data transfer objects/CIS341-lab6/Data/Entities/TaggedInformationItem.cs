@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CIS341_lab6.Data.Entities
 {
@@ -26,6 +27,7 @@ namespace CIS341_lab6.Data.Entities
         /// <value>
         /// The property value representing column 'tag_name'.
         /// </value>
+        [Display(Name = "Tag Name")]
         public string TagName { get; set; }
 
         /// <summary>
@@ -34,6 +36,7 @@ namespace CIS341_lab6.Data.Entities
         /// <value>
         /// The property value representing column 'information_item_id'.
         /// </value>
+        [Display(Name = "Shared Information Item ID")]
         public long InformationItemId { get; set; }
 
         #endregion

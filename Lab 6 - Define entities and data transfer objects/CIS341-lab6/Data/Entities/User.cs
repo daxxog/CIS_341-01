@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CIS341_lab6.Data.Entities
 {
@@ -29,6 +30,7 @@ namespace CIS341_lab6.Data.Entities
         /// <value>
         /// The property value representing column 'id'.
         /// </value>
+        [Display(Name = "User ID")]
         public long Id { get; set; }
 
         /// <summary>
@@ -37,6 +39,7 @@ namespace CIS341_lab6.Data.Entities
         /// <value>
         /// The property value representing column 'email'.
         /// </value>
+        [Display(Name = "Email")]
         public string Email { get; set; }
 
         /// <summary>
@@ -53,7 +56,8 @@ namespace CIS341_lab6.Data.Entities
         /// <value>
         /// The property value representing column 'content_manager'.
         /// </value>
-        public Byte[] ContentManager { get; set; }
+        [Display(Name = "Is Content Manager")]
+        public bool ContentManager { get; set; }
 
         #endregion
 
@@ -65,6 +69,7 @@ namespace CIS341_lab6.Data.Entities
         /// <value>
         /// The the navigation collection for entity <see cref="Favorite" />.
         /// </value>
+        [Display(Name = "Favorites")]
         public virtual ICollection<Favorite> Favorites { get; set; }
 
         /// <summary>
@@ -73,6 +78,7 @@ namespace CIS341_lab6.Data.Entities
         /// <value>
         /// The the navigation collection for entity <see cref="UserInformationItem" />.
         /// </value>
+        [Display(Name = "My Information Items")]
         public virtual ICollection<UserInformationItem> UserInformationItems { get; set; }
 
         #endregion
