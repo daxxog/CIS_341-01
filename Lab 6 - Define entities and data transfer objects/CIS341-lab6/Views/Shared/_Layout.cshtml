@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@{
+    AuthorizationStatus authorizationStatus = (AuthorizationStatus)Context.Items["AuthorizationStatus"];
+}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8"/>
@@ -12,7 +15,7 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">CIS341_lab6</a>
+            <a class="navbar-brand" asp-area="" asp-controller="Tags" asp-action="Index">CIS341_lab6</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -20,25 +23,30 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <!--- might remove this view --->
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                    </li>
-                    <li class="nav-item">
-                        <!--- only in end user views --->
-                        <a class="nav-link text-dark" asp-area="" asp-controller="UserInformationItem" asp-action="Index">My Information Items</a>
-                    </li>
-                    <li class="nav-item">
-                        <!--- only in content manager views --->
-                        <a class="nav-link text-dark" asp-area="" asp-controller="SharedInformationItem" asp-action="Index">Shared Information Items</a>
-                    </li>
-                    <li class="nav-item">
-                        <!--- only required in end user views, but could also be in content manager views as a convenience --->
+                        <!--- only required in end user views, but I also put in content manager views as a convenience --->
                         <a class="nav-link text-dark" asp-area="" asp-controller="Tag" asp-action="Index">Tags</a>
                     </li>
-                    <li class="nav-item">
-                        <!--- only in end user views --->
-                        <a class="nav-link text-dark" asp-area="" asp-controller="Favorite" asp-action="Index">Favorites</a>
-                    </li>
+                    @if (!authorizationStatus.IsContentManager)
+                    {
+                        <li class="nav-item">
+                            <!--- only in end user views --->
+                            <a class="nav-link text-dark" asp-area="" asp-controller="UserInformationItem" asp-action="Index">My Information Items</a>
+                        </li>
+                    }
+                    @if (authorizationStatus.IsContentManager)
+                    {
+                        <li class="nav-item">
+                            <!--- only in content manager views --->
+                            <a class="nav-link text-dark" asp-area="" asp-controller="SharedInformationItem" asp-action="Index">Shared Information Items</a>
+                        </li>
+                    }
+                    @if (!authorizationStatus.IsContentManager)
+                    {
+                        <li class="nav-item">
+                            <!--- only in end user views --->
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Favorite" asp-action="Index">Favorites</a>
+                        </li>
+                    }
                 </ul>
             </div>
         </div>
