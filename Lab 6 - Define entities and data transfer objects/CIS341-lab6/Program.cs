@@ -23,6 +23,7 @@ app.Use(async (context, next) =>
     // Do work that can write to the Response.
     context.Items.Add("AuthorizationStatus", new AuthorizationStatus
     {
+        UserId = 2,
         IsContentManager = false,
     });
     await next.Invoke();
