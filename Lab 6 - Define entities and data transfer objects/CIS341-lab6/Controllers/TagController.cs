@@ -76,10 +76,35 @@ namespace CIS341_lab6.Controllers
             return View(tags);
         }
 
-        // GET: Tag/Details/5
+        // GET: Tag/turducken
+        [Route("/Tag/{id}")]
         public async Task<IActionResult> Details(string id)
         {
-            return View();
+            if (id == null || _context.TaggedInformationItems == null)
+            {
+                return NotFound();
+            }
+
+            IEnumerable<TaggedInformationItem> taggedInformationItems = await _context.TaggedInformationItems
+                .Where(m => m.TagName == id).Include(m => m.InformationItemSharedInformationItem).ToListAsync();
+            List<SharedInformationItem> sharedInformationItems = new List<SharedInformationItem>();
+            TagModel tagged = null;
+            foreach (TaggedInformationItem taggedInformationItem in taggedInformationItems)
+            {
+                if (tagged == null)
+                {
+                    tagged = new TagModel
+                    {
+                        TagName = taggedInformationItem.TagName,
+                        SharedInformationItems = sharedInformationItems,
+                    };
+                }
+
+                sharedInformationItems.Add(taggedInformationItem.InformationItemSharedInformationItem);
+            }
+
+
+            return View(tagged);
         }
     }
 }

@@ -1,7 +1,9 @@
 @model CIS341_lab6.Models.TagModel
 
 @{
-    Layout = null;
+    ViewData["TagName"] = System.Security.SecurityElement.Escape(Model.TagName);
+    ViewData["Title"] = $"tag::{ViewData["TagName"]}";
+    Layout = "_Layout";
 }
 
 <!DOCTYPE html>
@@ -9,18 +11,28 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width"/>
-    <title>Details</title>
+    <title>@ViewData["Title"]</title>
+    <style>
+        a.breadcrumbs { text-decoration: none; }
+
+        a.breadcrumbs:hover { text-decoration: overline; }
+    </style>
 </head>
 <body>
 
 <div>
-    <h4>TagModel</h4>
+    <h4><a class="breadcrumbs" asp-action="Index">tag</a> :: @ViewData["TagName"]</h4>
     <hr/>
-    <dl class="row">
-    </dl>
+    @foreach (var item in Model.SharedInformationItems)
+    {
+        <dl class="row">
+            <a asp-area="" asp-controller="SharedInformationItem" asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
+        </dl>
+    }
 </div>
+<hr/>
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Back to Tags</a>
 </div>
 </body>
 </html>
