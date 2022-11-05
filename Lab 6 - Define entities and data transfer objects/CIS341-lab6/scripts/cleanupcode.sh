@@ -7,7 +7,7 @@ for source_code in $(find . | grep -v './obj' | grep -v './bin' | grep '.cs' | g
     _ALL="${_ID} ${_ALL}"
     printf ".PHONY: ${_ID}\n" | tee -a cleanupcode.Makefile
     printf "${_ID}:\n" | tee -a cleanupcode.Makefile
-    printf "\tjb cleanupcode $source_code\n" | tee -a cleanupcode.Makefile
+    printf "\tscripts/1cleanupcode.sh $source_code\n" | tee -a cleanupcode.Makefile
 done
 
 printf ".PHONY: cleanupcode\n" | tee -a cleanupcode.Makefile
