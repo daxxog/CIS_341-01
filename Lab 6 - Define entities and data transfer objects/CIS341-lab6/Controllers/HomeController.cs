@@ -18,8 +18,24 @@ public class HomeController : Controller
 
     public IActionResult Index(TestDataGenerator tdg)
     {
-        tdg.generate(_context);
-        return View();
+        Console.WriteLine("/ requested");
+
+        // not the best way to go about this, but works for testing
+        try
+        {
+            tdg.generate(_context);
+            Console.WriteLine("database generated");
+        }
+        catch (Exception e)
+        {
+            // probably because we already have the data, but
+            // also could be some other error so we print it out
+            // blanket handling exceptions like this is bad practice
+            Console.WriteLine(e.StackTrace);
+            Console.WriteLine("This is fine ;)");
+        }
+
+        return Redirect("/Tags"); // I could use RedirectPermanent, but Redirect works better for testing
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
