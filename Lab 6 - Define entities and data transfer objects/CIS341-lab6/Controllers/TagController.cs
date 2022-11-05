@@ -13,10 +13,12 @@ namespace CIS341_lab6.Controllers
     public class TagController : Controller
     {
         private readonly SqliteContext _context;
+        private readonly Func<AuthorizationStatus> _getAuthorizationStatus;
 
         public TagController(SqliteContext context)
         {
             _context = context;
+            _getAuthorizationStatus = () => (AuthorizationStatus)HttpContext.Items["AuthorizationStatus"];
         }
 
         // GET: Tags
@@ -80,27 +82,49 @@ namespace CIS341_lab6.Controllers
         [Route("/Tag/{id}")]
         public async Task<IActionResult> Details(string id)
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+
             if (id == null || _context.TaggedInformationItems == null)
             {
                 return NotFound();
             }
 
+            // select by tag name and include all the linked models we need
             IEnumerable<TaggedInformationItem> taggedInformationItems = await _context.TaggedInformationItems
-                .Where(m => m.TagName == id).Include(m => m.InformationItemSharedInformationItem).ToListAsync();
+                .Where(m => m.TagName == id).Include(m => m.InformationItemSharedInformationItem)
+                .Include(m => m.InformationItemSharedInformationItem.InformationItemFavorites).ToListAsync();
             List<SharedInformationItem> sharedInformationItems = new List<SharedInformationItem>();
             TagModel tagged = null;
+            List<MyFavoriteItemModel> maybeMyFavoriteItems = new List<MyFavoriteItemModel>();
+
+            // iterate through the database to create the ViewModel we want to return to the View (tagged)
             foreach (TaggedInformationItem taggedInformationItem in taggedInformationItems)
             {
+                // create the TagModel if we haven't already (first iteration)
                 if (tagged == null)
                 {
                     tagged = new TagModel
                     {
                         TagName = taggedInformationItem.TagName,
-                        SharedInformationItems = sharedInformationItems,
+                        MaybeMyFavoriteItems = maybeMyFavoriteItems,
                     };
                 }
 
-                sharedInformationItems.Add(taggedInformationItem.InformationItemSharedInformationItem);
+                SharedInformationItem sii = taggedInformationItem.InformationItemSharedInformationItem;
+                // we use this MyFavoriteItemModel to send favorite information to the View
+                MyFavoriteItemModel maybeMyFavoriteItem = new MyFavoriteItemModel
+                {
+                    // see if the favorite matches the user id somewhere
+                    // this is not optimal for lots of users / favorites
+                    // we also could do a lot of this in SQL, but to quote Professor Heimonen:
+                    //
+                    // "This isn't a database class."
+                    //
+                    MyFavorite = sii.InformationItemFavorites.Aggregate(false,
+                        (a, favorite) => a || favorite.UserId == authStatus.UserId),
+                    SharedInformationItem = sii,
+                };
+                maybeMyFavoriteItems.Add(maybeMyFavoriteItem);
             }
 
 
