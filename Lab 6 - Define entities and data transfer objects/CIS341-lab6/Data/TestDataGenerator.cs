@@ -132,10 +132,16 @@ namespace CIS341_lab6.Data
             context.Add(sharedItem6);
 
             string[] tags456 = { "pork", "chicken", "meatloaf", "turducken" };
-            foreach (string tag in tags456)
+            SharedInformationItem[] sharedItems = { sharedItem4, sharedItem5, sharedItem6 };
+            foreach (SharedInformationItem sharedItem in sharedItems)
             {
-                SharedInformationItem[] sharedItems = { sharedItem4, sharedItem5, sharedItem6 };
-                foreach (SharedInformationItem sharedItem in sharedItems)
+                Favorite aFavorite = new Favorite
+                {
+                    User = user2,
+                    InformationItemSharedInformationItem = sharedItem,
+                };
+                context.Add(aFavorite);
+                foreach (string tag in tags456)
                 {
                     TaggedInformationItem taggedInformationItem = new TaggedInformationItem
                     {
