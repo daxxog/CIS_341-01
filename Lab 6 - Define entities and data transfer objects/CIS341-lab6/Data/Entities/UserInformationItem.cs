@@ -72,5 +72,23 @@ namespace CIS341_lab6.Data.Entities
         public virtual User User { get; set; }
 
         #endregion
+
+        // https://learn.microsoft.com/en-us/ef/ef6/saving/validation
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            if (Title.Length > 64)
+            {
+                yield return new ValidationResult(
+                    "Title must be less than or equal to 64 characters in length",
+                    new[] { nameof(Title) });
+            }
+
+            if (Details.Length > 4096)
+            {
+                yield return new ValidationResult(
+                    "Description must be less than or equal to 4096 characters in length",
+                    new[] { nameof(Details) });
+            }
+        }
     }
 }

@@ -1,13 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Text.RegularExpressions;
 
 namespace CIS341_lab6.Data.Entities
 {
     /// <summary>
     /// Entity class representing data for table 'tagged_information_item'.
     /// </summary>
-    public partial class TaggedInformationItem
+    public partial class TaggedInformationItem : IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="TaggedInformationItem"/> class.
@@ -53,5 +54,17 @@ namespace CIS341_lab6.Data.Entities
         public virtual SharedInformationItem InformationItemSharedInformationItem { get; set; }
 
         #endregion
+
+        // https://learn.microsoft.com/en-us/ef/ef6/saving/validation
+        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        {
+            string cleanTagName = Regex.Replace(TagName, @"[^\w\s]", string.Empty);
+            if (!TagName.Equals(cleanTagName))
+            {
+                yield return new ValidationResult(
+                    "TagName must only container alphanumeric characters and spaces",
+                    new[] { nameof(TagName) });
+            }
+        }
     }
 }

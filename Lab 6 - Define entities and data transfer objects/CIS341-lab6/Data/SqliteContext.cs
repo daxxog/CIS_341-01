@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -18,6 +19,25 @@ namespace CIS341_lab6.Data
         {
             // https://stackoverflow.com/a/50042017
             Database.EnsureCreated();
+        }
+
+        // https://www.bricelam.net/2016/12/13/validation-in-efcore.html
+        public override int SaveChanges()
+        {
+            var entities = from e in ChangeTracker.Entries()
+                where e.State == EntityState.Added
+                      || e.State == EntityState.Modified
+                select e.Entity;
+            foreach (var entity in entities)
+            {
+                var validationContext = new ValidationContext(entity);
+                Validator.ValidateObject(
+                    entity,
+                    validationContext,
+                    validateAllProperties: true);
+            }
+
+            return base.SaveChanges();
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
