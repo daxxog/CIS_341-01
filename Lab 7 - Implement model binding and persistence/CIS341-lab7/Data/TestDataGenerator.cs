@@ -10,6 +10,29 @@ namespace CIS341_lab7.Data
 
         public void generate(SqliteContext context)
         {
+            Func<String, String> fmtDetails = (details) =>
+            {
+                // just add some newlines every so often for generated meaty details
+                List<String> _returnWordList = new List<String>();
+                int i = 0;
+                foreach (String word in details.Split(" "))
+                {
+                    if (i < 10)
+                    {
+                        _returnWordList.Add(word);
+                    }
+                    else
+                    {
+                        _returnWordList.Add($"\n{word}");
+                        i = 0;
+                    }
+
+                    i++;
+                }
+
+                return String.Join(" ", _returnWordList);
+            };
+
             User user1 = new User
             {
                 Id = 1,
@@ -32,8 +55,8 @@ namespace CIS341_lab7.Data
                 Id = 1,
                 User = user2,
                 Title = "Example information item #1",
-                Details =
-                    "Bacon ipsum dolor amet pastrami sausage short loin, cow beef short ribs pork chop burgdoggen leberkas biltong andouille. Brisket turducken venison ham. Ground round shoulder shankle tongue short ribs. Drumstick t-bone pig sausage pastrami beef ribs chuck beef.",
+                Details = fmtDetails(
+                    "Bacon ipsum dolor amet pastrami sausage short loin, cow beef short ribs pork chop burgdoggen leberkas biltong andouille. Brisket turducken venison ham. Ground round shoulder shankle tongue short ribs. Drumstick t-bone pig sausage pastrami beef ribs chuck beef."),
             };
             context.Add(item);
 
@@ -41,8 +64,8 @@ namespace CIS341_lab7.Data
             {
                 Id = 1,
                 Title = "Shared information item #1",
-                Details =
-                    "Bacon ipsum dolor amet meatball tenderloin cupim, ham pork meatloaf drumstick. Leberkas bacon jowl beef ribs beef corned beef ham hock fatback kielbasa andouille strip steak turkey ribeye filet mignon. Corned beef ham hock salami, jerky jowl beef cupim landjaeger pork short loin doner. Chicken pancetta porchetta shankle hamburger burgdoggen, prosciutto landjaeger jerky alcatra strip steak bresaola. Pancetta landjaeger cupim beef salami. Short ribs turducken sirloin rump pig biltong short loin hamburger beef ribs porchetta burgdoggen jowl turkey.",
+                Details = fmtDetails(
+                    "Bacon ipsum dolor amet meatball tenderloin cupim, ham pork meatloaf drumstick. Leberkas bacon jowl beef ribs beef corned beef ham hock fatback kielbasa andouille strip steak turkey ribeye filet mignon. Corned beef ham hock salami, jerky jowl beef cupim landjaeger pork short loin doner. Chicken pancetta porchetta shankle hamburger burgdoggen, prosciutto landjaeger jerky alcatra strip steak bresaola. Pancetta landjaeger cupim beef salami. Short ribs turducken sirloin rump pig biltong short loin hamburger beef ribs porchetta burgdoggen jowl turkey."),
             };
             context.Add(sharedItem1);
 
@@ -68,8 +91,8 @@ namespace CIS341_lab7.Data
             {
                 Id = 2,
                 Title = "Shared information item #2",
-                Details =
-                    "Bacon ipsum dolor amet corned beef sausage meatloaf strip steak chislic, tenderloin kevin sirloin kielbasa andouille buffalo. Picanha meatball short ribs pork belly pig turducken corned beef frankfurter biltong ribeye. Chuck frankfurter pork loin brisket strip steak. Frankfurter porchetta meatloaf flank andouille short ribs pastrami pork belly corned beef chicken tenderloin buffalo.",
+                Details = fmtDetails(
+                    "Bacon ipsum dolor amet corned beef sausage meatloaf strip steak chislic, tenderloin kevin sirloin kielbasa andouille buffalo. Picanha meatball short ribs pork belly pig turducken corned beef frankfurter biltong ribeye. Chuck frankfurter pork loin brisket strip steak. Frankfurter porchetta meatloaf flank andouille short ribs pastrami pork belly corned beef chicken tenderloin buffalo."),
             };
             context.Add(sharedItem2);
 
@@ -88,8 +111,8 @@ namespace CIS341_lab7.Data
             {
                 Id = 3,
                 Title = "Shared information item #3",
-                Details =
-                    "Bacon ipsum dolor amet turducken chicken shoulder, pork chop rump landjaeger flank t-bone sausage ham. Kevin salami landjaeger shank meatloaf pork loin ham hock sausage flank kielbasa. Ham hock picanha tenderloin, burgdoggen drumstick biltong turkey short ribs andouille hamburger jerky spare ribs. Meatloaf strip steak pastrami fatback tongue jowl pork chop filet mignon leberkas alcatra. Brisket corned beef jowl shankle. Andouille picanha bacon filet mignon, fatback frankfurter beef pancetta meatball meatloaf jerky.",
+                Details = fmtDetails(
+                    "Bacon ipsum dolor amet turducken chicken shoulder, pork chop rump landjaeger flank t-bone sausage ham. Kevin salami landjaeger shank meatloaf pork loin ham hock sausage flank kielbasa. Ham hock picanha tenderloin, burgdoggen drumstick biltong turkey short ribs andouille hamburger jerky spare ribs. Meatloaf strip steak pastrami fatback tongue jowl pork chop filet mignon leberkas alcatra. Brisket corned beef jowl shankle. Andouille picanha bacon filet mignon, fatback frankfurter beef pancetta meatball meatloaf jerky."),
             };
             context.Add(sharedItem3);
 
@@ -108,8 +131,8 @@ namespace CIS341_lab7.Data
             {
                 Id = 4,
                 Title = "Shared information item #4",
-                Details =
-                    "Bacon ipsum dolor amet tri-tip beef leberkas, ham hock capicola landjaeger bacon doner. Spare ribs shoulder ribeye ham hock salami tenderloin cupim landjaeger pork belly short ribs bacon. T-bone pork chop frankfurter, andouille corned beef turducken ham ham hock jerky chicken kevin. Shankle capicola biltong chislic. Tail chicken spare ribs, bacon cupim capicola corned beef chuck boudin shoulder ribeye.",
+                Details = fmtDetails(
+                    "Bacon ipsum dolor amet tri-tip beef leberkas, ham hock capicola landjaeger bacon doner. Spare ribs shoulder ribeye ham hock salami tenderloin cupim landjaeger pork belly short ribs bacon. T-bone pork chop frankfurter, andouille corned beef turducken ham ham hock jerky chicken kevin. Shankle capicola biltong chislic. Tail chicken spare ribs, bacon cupim capicola corned beef chuck boudin shoulder ribeye."),
             };
             context.Add(sharedItem4);
 
@@ -117,8 +140,8 @@ namespace CIS341_lab7.Data
             {
                 Id = 5,
                 Title = "Shared information item #5",
-                Details =
-                    "Bacon ipsum dolor amet strip steak pork chop buffalo shankle kielbasa venison ham ribeye ham hock tongue capicola. Flank pork belly burgdoggen sirloin jerky. Spare ribs kevin turducken prosciutto capicola t-bone venison. Pork loin fatback tongue strip steak boudin, ribeye biltong leberkas.",
+                Details = fmtDetails(
+                    "Bacon ipsum dolor amet strip steak pork chop buffalo shankle kielbasa venison ham ribeye ham hock tongue capicola. Flank pork belly burgdoggen sirloin jerky. Spare ribs kevin turducken prosciutto capicola t-bone venison. Pork loin fatback tongue strip steak boudin, ribeye biltong leberkas."),
             };
             context.Add(sharedItem5);
 
@@ -126,8 +149,8 @@ namespace CIS341_lab7.Data
             {
                 Id = 6,
                 Title = "Shared information item #6",
-                Details =
-                    "Bacon ipsum dolor amet prosciutto spare ribs sirloin pork belly porchetta bresaola pancetta biltong. Turducken tongue drumstick burgdoggen pancetta, short ribs swine biltong strip steak salami sausage tenderloin. Ground round chuck ribeye, sausage shoulder venison filet mignon porchetta frankfurter andouille kielbasa chislic short loin pig. Leberkas shoulder fatback ball tip, venison jowl turkey bresaola. Shankle pork belly turkey beef fatback.",
+                Details = fmtDetails(
+                    "Bacon ipsum dolor amet prosciutto spare ribs sirloin pork belly porchetta bresaola pancetta biltong. Turducken tongue drumstick burgdoggen pancetta, short ribs swine biltong strip steak salami sausage tenderloin. Ground round chuck ribeye, sausage shoulder venison filet mignon porchetta frankfurter andouille kielbasa chislic short loin pig. Leberkas shoulder fatback ball tip, venison jowl turkey bresaola. Shankle pork belly turkey beef fatback."),
             };
             context.Add(sharedItem6);
 
@@ -156,8 +179,8 @@ namespace CIS341_lab7.Data
             {
                 Id = 7,
                 Title = "Shared information item #7",
-                Details =
-                    "Bacon ipsum dolor amet pork hamburger strip steak, pastrami turkey porchetta leberkas capicola bacon. Pig pastrami landjaeger corned beef ball tip cupim, chislic kielbasa cow. Beef ribs cow buffalo turducken, burgdoggen frankfurter short ribs rump kevin ribeye capicola turkey. Burgdoggen beef kielbasa chicken, fatback strip steak filet mignon pork chop turkey andouille porchetta kevin. Ham beef turducken flank, frankfurter jowl pork chop cow drumstick boudin beef ribs tenderloin shankle. Brisket landjaeger cupim beef ribs doner leberkas ribeye drumstick sausage pancetta fatback venison.",
+                Details = fmtDetails(
+                    "Bacon ipsum dolor amet pork hamburger strip steak, pastrami turkey porchetta leberkas capicola bacon. Pig pastrami landjaeger corned beef ball tip cupim, chislic kielbasa cow. Beef ribs cow buffalo turducken, burgdoggen frankfurter short ribs rump kevin ribeye capicola turkey. Burgdoggen beef kielbasa chicken, fatback strip steak filet mignon pork chop turkey andouille porchetta kevin. Ham beef turducken flank, frankfurter jowl pork chop cow drumstick boudin beef ribs tenderloin shankle. Brisket landjaeger cupim beef ribs doner leberkas ribeye drumstick sausage pancetta fatback venison."),
             };
             context.Add(sharedItem7);
 
