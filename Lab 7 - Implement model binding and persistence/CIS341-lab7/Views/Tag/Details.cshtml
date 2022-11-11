@@ -1,6 +1,7 @@
 @model CIS341_lab7.Models.TagModel
 
 @{
+    AuthorizationStatus authorizationStatus = (AuthorizationStatus)Context.Items["AuthorizationStatus"];
     ViewData["TagName"] = System.Security.SecurityElement.Escape(Model.TagName);
     ViewData["Title"] = $"tag::{ViewData["TagName"]}";
     Layout = "_Layout";
@@ -45,16 +46,25 @@
             <div class="title">
                 <a asp-area="" asp-controller="SharedInformationItem" asp-action="Details" asp-route-id="@item.SharedInformationItem.Id">@Html.DisplayFor(modelItem => item.SharedInformationItem.Title)</a>
             </div>
-            <div class="star">
-                @if (item.MyFavorite)
-                {
-                    <span class="favorite">★</span>
-                }
-                else
-                {
-                    <span class="notfavorite">☆</span>
-                }
-            </div>
+            @if (authorizationStatus.IsContentManager)
+            {
+                <div class="notstar">
+                    &nbsp;
+                </div>
+            }
+            else
+            {
+                <div class="star">
+                    @if (item.MyFavorite)
+                    {
+                        <span class="favorite">★</span>
+                    }
+                    else
+                    {
+                        <span class="notfavorite">☆</span>
+                    }
+                </div>
+            }
         </div>
     }
 </div>
