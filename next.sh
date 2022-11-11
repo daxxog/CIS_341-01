@@ -2,14 +2,14 @@
 set -x
 
 # SOURCE LAB
-SOURCE_LABN="lab5"
-SOURCE_LAB_ALT="Lab-05"
-SOURCE_LAB="Lab 5 - Implement Controller structure"
+SOURCE_LABN="lab6"
+SOURCE_LAB_ALT="Lab-06"
+SOURCE_LAB="Lab 6 - Define entities and data transfer objects"
 
 # NEW LAB
-DEST_LABN="lab6"
-DEST_LAB_ALT="Lab-06"
-DEST_LAB="Lab 6 - Define entities and data transfer objects"
+DEST_LABN="lab7"
+DEST_LAB_ALT="Lab-07"
+DEST_LAB="Lab 7 - Implement model binding and persistence"
 
 
 SOURCE_PROJ="CIS341-${SOURCE_LABN}"
@@ -40,4 +40,4 @@ for repf in $(grep -r -l ${SOURCE_LAB_ALT} .); do
     sed -i "s/${SOURCE_LAB_ALT}/${DEST_LAB_ALT}/g" $repf
 done
 ./rebuildwwwroot.sh
-cd ${DEST_PROJ} && dotnet build && jb cleanupcode Program.cs
+cd ${DEST_PROJ} && dotnet build && scripts/1cleanupcode.sh Program.cs
