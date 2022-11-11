@@ -90,5 +90,16 @@ namespace CIS341_lab7.Data.Entities
                     new[] { nameof(Details) });
             }
         }
+
+        // merge using + operator (used in Update CRUD)
+        // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/operator-overloading
+        public static SharedInformationItem operator +(SharedInformationItem left, SharedInformationItem right)
+        {
+            left.Title = right.Title;
+            left.Details = right.Details;
+            left.InformationItemTaggedInformationItems = right.InformationItemTaggedInformationItems;
+
+            return left;
+        }
     }
 }

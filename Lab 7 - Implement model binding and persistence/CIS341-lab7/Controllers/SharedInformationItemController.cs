@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using CIS341_lab7.Models;
+using System.ComponentModel.DataAnnotations;
 using CIS341_lab7.Data;
 using CIS341_lab7.Data.Entities;
 
@@ -13,10 +15,35 @@ namespace CIS341_lab7.Controllers
     public class SharedInformationItemController : Controller
     {
         private readonly SqliteContext _context;
+        private readonly Func<SharedInformationItemCreateUpdateModel, List<TaggedInformationItem>> _deriveTags;
 
         public SharedInformationItemController(SqliteContext context)
         {
             _context = context;
+            _deriveTags = (sharedInformationItemCreateUpdate) =>
+            {
+                // derive the tags from a comma separated string and validate them
+                List<TaggedInformationItem> Tags = new List<TaggedInformationItem>();
+                foreach (String stringTag in sharedInformationItemCreateUpdate.Tags.Split(","))
+                {
+                    TaggedInformationItem tag = new TaggedInformationItem
+                    {
+                        TagName = stringTag,
+                    };
+                    try
+                    {
+                        var validationContext = new ValidationContext(tag);
+                        Validator.ValidateObject(tag, validationContext, validateAllProperties: true);
+                        Tags.Add(tag);
+                    }
+                    catch (ValidationException e)
+                    {
+                        ModelState.AddModelError("Tags", e.ValidationResult.ErrorMessage);
+                    }
+                }
+
+                return Tags;
+            };
         }
 
         // GET: SharedInformationItem
@@ -56,16 +83,21 @@ namespace CIS341_lab7.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Title,Details")] SharedInformationItem sharedInformationItem)
+        public async Task<IActionResult> Create(
+            [Bind("Id,Title,Tags,Details")] SharedInformationItemCreateUpdateModel sharedInformationItemCreateUpdate)
         {
+            List<TaggedInformationItem> Tags = _deriveTags(sharedInformationItemCreateUpdate);
+
             if (ModelState.IsValid)
             {
+                SharedInformationItem sharedInformationItem = sharedInformationItemCreateUpdate.DeriveBase();
+                sharedInformationItem.InformationItemTaggedInformationItems = Tags;
                 _context.Add(sharedInformationItem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
 
-            return View(sharedInformationItem);
+            return View(sharedInformationItemCreateUpdate);
         }
 
         // GET: SharedInformationItem/Edit/5
@@ -76,13 +108,14 @@ namespace CIS341_lab7.Controllers
                 return NotFound();
             }
 
-            var sharedInformationItem = await _context.SharedInformationItems.FindAsync(id);
+            var sharedInformationItem = await _context.SharedInformationItems.Where(m => m.Id == id)
+                .Include(m => m.InformationItemTaggedInformationItems).FirstAsync();
             if (sharedInformationItem == null)
             {
                 return NotFound();
             }
 
-            return View(sharedInformationItem);
+            return View(SharedInformationItemCreateUpdateModel.FromBase(sharedInformationItem));
         }
 
         // POST: SharedInformationItem/Edit/5
@@ -91,15 +124,26 @@ namespace CIS341_lab7.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id,
-            [Bind("Id,Title,Details")] SharedInformationItem sharedInformationItem)
+            [Bind("Id,Title,Tags,Details")] SharedInformationItemCreateUpdateModel sharedInformationItemCreateUpdate)
         {
-            if (id != sharedInformationItem.Id)
+            if (id != sharedInformationItemCreateUpdate.Id)
             {
                 return NotFound();
             }
 
+            List<TaggedInformationItem> Tags = _deriveTags(sharedInformationItemCreateUpdate);
+
             if (ModelState.IsValid)
             {
+                var sharedInformationItem = await _context.SharedInformationItems.Where(m => m.Id == id)
+                    .Include(m => m.InformationItemTaggedInformationItems).FirstAsync();
+                if (sharedInformationItem == null)
+                {
+                    return NotFound();
+                }
+
+                sharedInformationItem = sharedInformationItem + sharedInformationItemCreateUpdate.DeriveBase();
+                sharedInformationItem.InformationItemTaggedInformationItems = Tags;
                 try
                 {
                     _context.Update(sharedInformationItem);
@@ -120,7 +164,7 @@ namespace CIS341_lab7.Controllers
                 return RedirectToAction(nameof(Details), new RouteValueDictionary { { "Id", id.ToString() } });
             }
 
-            return View(sharedInformationItem);
+            return View(sharedInformationItemCreateUpdate);
         }
 
         // GET: SharedInformationItem/Delete/5

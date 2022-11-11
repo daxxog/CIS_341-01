@@ -62,7 +62,7 @@ namespace CIS341_lab7.Data.Entities
             if (!TagName.Equals(cleanTagName))
             {
                 yield return new ValidationResult(
-                    "TagName must only container alphanumeric characters and spaces",
+                    "TagName must only contain alphanumeric characters and spaces",
                     new[] { nameof(TagName) });
             }
         }
