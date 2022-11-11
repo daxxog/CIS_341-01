@@ -20,12 +20,27 @@ if (!app.Environment.IsDevelopment())
 // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-6.0
 app.Use(async (context, next) =>
 {
+    var mode = 1;
+
     // Do work that can write to the Response.
-    context.Items.Add("AuthorizationStatus", new AuthorizationStatus
+    switch (mode)
     {
-        UserId = 2,
-        IsContentManager = false,
-    });
+        case 1:
+            context.Items.Add("AuthorizationStatus", new AuthorizationStatus
+            {
+                UserId = 1,
+                IsContentManager = true,
+            });
+            break;
+        case 2:
+            context.Items.Add("AuthorizationStatus", new AuthorizationStatus
+            {
+                UserId = 2,
+                IsContentManager = false,
+            });
+            break;
+    }
+
     await next.Invoke();
 });
 
