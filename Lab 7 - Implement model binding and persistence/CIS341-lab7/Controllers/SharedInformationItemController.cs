@@ -117,7 +117,7 @@ namespace CIS341_lab7.Controllers
                     }
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new RouteValueDictionary { { "Id", id.ToString() } });
             }
 
             return View(sharedInformationItem);

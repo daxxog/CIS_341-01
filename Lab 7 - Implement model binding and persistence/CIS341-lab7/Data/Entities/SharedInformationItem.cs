@@ -39,7 +39,7 @@ namespace CIS341_lab7.Data.Entities
         /// <value>
         /// The property value representing column 'title'.
         /// </value>
-        [Display(Name = "Title")]
+        [Display(Name = "Shared Information Item Title")]
         public string Title { get; set; }
 
         /// <summary>
