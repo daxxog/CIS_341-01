@@ -62,8 +62,8 @@ namespace CIS341_lab7.Controllers
                 return NotFound();
             }
 
-            var sharedInformationItem = await _context.SharedInformationItems
-                .FirstOrDefaultAsync(m => m.Id == id);
+            var sharedInformationItem = await _context.SharedInformationItems.Where(m => m.Id == id)
+                .Include(m => m.InformationItemTaggedInformationItems).FirstAsync();
             if (sharedInformationItem == null)
             {
                 return NotFound();
