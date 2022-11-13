@@ -17,6 +17,31 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+// Setup the database
+// https://stackoverflow.com/a/38418080
+// https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.sqlitedbcontextoptionsbuilderextensions.usesqlite?view=efcore-6.0
+// https://learn.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.dbcontextoptionsbuilder?view=efcore-6.0
+using (var _context = new SqliteContext(Microsoft.EntityFrameworkCore.SqliteDbContextOptionsBuilderExtensions
+           .UseSqlite(new Microsoft.EntityFrameworkCore.DbContextOptionsBuilder<SqliteContext>()).Options))
+{
+    var tdg = new TestDataGenerator();
+
+    // not the best way to go about this, but works for testing
+    try
+    {
+        tdg.generate(_context);
+        Console.WriteLine("database generated");
+    }
+    catch (Exception e)
+    {
+        // probably because we already have the data, but
+        // also could be some other error so we print it out
+        // blanket handling exceptions like this is bad practice
+        Console.WriteLine(e.StackTrace);
+        Console.WriteLine("This is fine ;)");
+    }
+}
+
 // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-6.0
 app.Use(async (context, next) =>
 {
