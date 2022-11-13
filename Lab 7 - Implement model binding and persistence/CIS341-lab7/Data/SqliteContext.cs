@@ -22,6 +22,7 @@ namespace CIS341_lab7.Data
         }
 
         // https://www.bricelam.net/2016/12/13/validation-in-efcore.html
+        /*
         public override int SaveChanges()
         {
             var entities = from e in ChangeTracker.Entries()
@@ -39,6 +40,7 @@ namespace CIS341_lab7.Data
 
             return base.SaveChanges();
         }
+        */
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
