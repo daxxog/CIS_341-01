@@ -7,7 +7,7 @@ namespace CIS341_lab7.Data.Entities
     /// <summary>
     /// Entity class representing data for table 'shared_information_item'.
     /// </summary>
-    public partial class SharedInformationItem
+    public partial class SharedInformationItem : IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="SharedInformationItem"/> class.
