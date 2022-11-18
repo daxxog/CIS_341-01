@@ -5,3 +5,5 @@ cleanupcode.Makefile
 Volm.David.CIS_341-01.Lab-*.zip
 sqlite.db
 sqlite.db-*
+identity.db
+identity.db-*
