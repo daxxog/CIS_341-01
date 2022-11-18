@@ -1,0 +1,39 @@
+@model IEnumerable<CIS341_lab8.Data.Entities.SharedInformationItem>
+
+@{
+    AuthorizationStatus authorizationStatus = (AuthorizationStatus)Context.Items["AuthorizationStatus"];
+    ViewData["Title"] = "Shared Information Items";
+    Layout = "_Layout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    @if (authorizationStatus.IsContentManager)
+    {
+        <span>
+            <a asp-action="Create">Create New</a>
+        </span>
+    }
+    <span>&nbsp;</span>
+    <a asp-area="" asp-controller="Tag" asp-action="Index">Browse by Tag</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

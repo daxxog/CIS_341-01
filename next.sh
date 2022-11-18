@@ -2,14 +2,14 @@
 set -x
 
 # SOURCE LAB
-SOURCE_LABN="lab6"
-SOURCE_LAB_ALT="Lab-06"
-SOURCE_LAB="Lab 6 - Define entities and data transfer objects"
+SOURCE_LABN="lab7"
+SOURCE_LAB_ALT="Lab-07"
+SOURCE_LAB="Lab 7 - Implement model binding and persistence"
 
 # NEW LAB
-DEST_LABN="lab7"
-DEST_LAB_ALT="Lab-07"
-DEST_LAB="Lab 7 - Implement model binding and persistence"
+DEST_LABN="lab8"
+DEST_LAB_ALT="Lab-08"
+DEST_LAB="Lab 8 - Add authentication and authorization"
 
 
 SOURCE_PROJ="CIS341-${SOURCE_LABN}"

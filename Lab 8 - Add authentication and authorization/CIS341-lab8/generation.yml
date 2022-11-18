@@ -1,0 +1,188 @@
+#---------------------------------#
+# project section -  Used for shared variables through out the configuration file
+#---------------------------------#
+project:
+  # the root namespace for the project
+  namespace: 'CIS341_lab8'
+  # the root directory for the project
+  directory: ./
+  # output should support nullable reference types
+  # nullable: true
+#---------------------------------#
+# data section -  Used for configuring database connections
+#---------------------------------#
+database:
+  # the connection string to the database
+  connectionString: 'Data Source={Project.Directory}/sqlite.db'
+  provider: Sqlite
+
+  # tables to include or empty to include all
+##_  tables:
+##_    - Priority
+##_    - Status
+##_    - Task
+##_    - User
+
+  # schemas to include or empty to include all
+##_  schemas:
+##_    - dbo
+
+  # list of expressions for tables to exclude, source is Schema.TableName
+  exclude:
+    - exact: dbo.SchemaVersions
+    - regex: dbo\.SchemaVersions$
+
+  # table naming hint for how existing tables are named.  Default: Singular
+  # tableNaming: Mixed|Plural|Singular
+  tableNaming: Plural
+
+#---------------------------------#
+# data section - controls the generated files for Entity Framework
+#---------------------------------#
+data:
+  # data context file configuration
+  context:
+    name: '{Database.Name}Context'          # the data context class name
+    baseClass: DbContext                    # the data context base class name
+    namespace: '{Project.Namespace}.Data'   # the data context namespace
+    directory: '{Project.Directory}/Data'   # the data context output directory
+
+    # how to generate names for the DbSet properties on the data context.  Default: Plural
+    # propertyNaming: Preserve|Plural|Suffix
+    propertyNaming: Plural
+    #include XML documentation
+    document: true
+
+  # entity class file configuration
+  entity:
+    namespace: '{Project.Namespace}.Data.Entities'  # the entity class namespace
+    directory: '{Project.Directory}/Data/Entities'  # the entity class output directory
+
+    # how to generate entity class names from the table name.  Default: Singular
+    entityNaming: Singular
+
+    # how to generate relationship collections names for the entity.  Default: Plural
+    relationshipNaming: Plural
+    #include XML documentation
+    document: true
+
+    # Generate class names with prefixed schema name eg. dbo.MyTable = DboMyTable
+    prefixWithSchemaName: false
+
+  # mapping class file configuration
+  mapping:
+    namespace: '{Project.Namespace}.Data.Mapping'   # the mapping class namespace
+    directory: '{Project.Directory}/Data/Mapping'   # the mapping class output directory
+    #include XML documentation
+    document: true
+
+  # query extension class file configuration
+  query:
+    generate: true          # generate query extension class files
+    indexPrefix: By         # Prefix for queries built from an index
+    uniquePrefix: GetBy     # Prefix for queries built from unique indexes
+    namespace: '{Project.Namespace}.Data.Queries'   # the mapping class namespace
+    directory: '{Project.Directory}/Data/Queries'   # the mapping class output directory
+    #include XML documentation
+    document: true
+
+#---------------------------------#
+# model section - controls the optional view model generation
+#---------------------------------#
+model:
+  # shared options between read, create and update models
+  shared:
+    namespace: '{Project.Namespace}.Domain.Models' # the model class namespace
+    directory: '{Project.Directory}/Domain/Models' # the mapping class output directory
+    # regular expression of entities and properties to exclude in all models
+ ##_   exclude:
+ ##_     # list of regular expressions of entity names
+ ##_     entities:
+ ##_       - 'EmailDelivery'
+ ##_       - 'UserLogin'
+
+ ##_     # list of regular expressions of property names, source is Entity.Property
+ ##_     properties:
+ ##_       - 'User\.PasswordHash$'
+ ##_       - 'User\.ResetHash$'
+
+  # read view model class configuration
+  read:
+    generate: false                  # generate read model class files
+##_    name: '{Entity.Name}ReadModel'  # the read model class name
+##_    baseClass: EntityReadModel      # the read model base class
+##_    namespace: '{Project.Namespace}.Domain.Models'
+##_    directory: '{Project.Directory}/Domain/Models'
+##_    exclude:
+##_      entities: []
+##_      properties: []
+
+  # create view model class configuration
+  create:
+    generate: false                      # generate create model class files
+ ##_   name: '{Entity.Name}CreateModel'    # the create model class name
+ ##_   baseClass: EntityCreateModel        # the create model base class
+ ##_   namespace: '{Project.Namespace}.Domain.Models'
+ ##_   directory: '{Project.Directory}/Domain/Models'
+ ##_   exclude:
+ ##_     entities: []
+ ##_     properties: []
+
+  # update view model class configuration
+  update:
+    generate: false                      # generate update model class files
+##_    name: '{Entity.Name}UpdateModel'    # the update model class name
+##_    baseClass: EntityUpdateModel        # the update model base class
+##_    namespace: '{Project.Namespace}.Domain.Models'
+##_    directory: '{Project.Directory}/Domain/Models'
+##_    exclude:
+##_      entities: []
+##_      properties: []
+
+  # AutoMapper class configuration
+  mapper:
+    generate: false
+##_    name: '{Entity.Name}Profile'
+##_    baseClass: Profile
+##_    namespace: '{Project.Namespace}.Domain.Mapping'
+##_    directory: '{Project.Directory}/Domain/Mapping'
+
+  # FluentValidation class configuration
+  validator:
+    generate: false
+##_    name: '{Model.Name}Validator'
+##_    baseClass: 'AbstractValidator<{Model.Name}>'
+##_    namespace: '{Project.Namespace}.Domain.Validation'
+##_    directory: '{Project.Directory}/Domain/Validation'
+# script templates
+##_ script:
+##_   # collection script template with EntityContext as a variable
+##_   context:  
+##_     - templatePath: '.\templates\context.csx'          # path to script file
+##_       fileName: 'ContextScript.cs'                     # filename to save script output
+##_       directory: '{Project.Directory}\Domain\Context'  # directory to save script output
+##_       namespace: '{Project.Namespace}.Domain.Context'  
+##_       baseClass: ContextScriptBase
+##_       overwrite: true                                  # overwrite existing file
+##_   # collection of script template with current Entity as a variable
+##_   entity:
+##_     - templatePath: '.\templates\entity.csx'           # path to script file
+##_       fileName: '{Entity.Name}Script.cs'               # filename to save script output
+##_       directory: '{Project.Directory}\Domain\Entity'   # directory to save script output
+##_       namespace: '{Project.Namespace}.Domain.Entity'  
+##_       baseClass: EntityScriptBase
+##_       overwrite: true                                  # overwrite existing file
+##_   # collection script template with current Model as a variable
+##_   model:
+##_     - templatePath: '.\templates\model.csx'            # path to script file
+##_       fileName: '{Model.Name}Script.cs'                # filename to save script output
+##_       directory: '{Project.Directory}\Domain\Models'   # directory to save script output
+##_       namespace: '{Project.Namespace}.Domain.Models'  
+##_       baseClass: ModelScriptBase
+##_       overwrite: true                                  # overwrite existing file
+##_     - templatePath: '.\templates\sample.csx'           # path to script file
+##_       fileName: '{Model.Name}Sample.cs'                # filename to save script output
+##_       directory: '{Project.Directory}\Domain\Models'   # directory to save script output
+##_       namespace: '{Project.Namespace}.Domain.Models'  
+##_       baseClass: ModelSampleBase
+##_       overwrite: true                                  # overwrite existing file
