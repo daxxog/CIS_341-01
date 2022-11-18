@@ -11,7 +11,7 @@ var connectionString = builder.Configuration.GetConnectionString("IdentityContex
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SqliteContext>();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<IdentityContext>();
 
 var app = builder.Build();
