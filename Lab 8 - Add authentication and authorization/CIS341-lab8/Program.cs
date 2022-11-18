@@ -53,6 +53,19 @@ using (var _context = new SqliteContext(Microsoft.EntityFrameworkCore.SqliteDbCo
     }
 }
 
+
+// https://learn.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration?view=aspnetcore-6.0#password
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    // Password settings.
+    options.Password.RequireDigit = true;
+    options.Password.RequireLowercase = true;
+    options.Password.RequireNonAlphanumeric = true;
+    options.Password.RequireUppercase = true;
+    options.Password.RequiredLength = 24;
+    options.Password.RequiredUniqueChars = 12;
+});
+
 // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-6.0
 app.Use(async (context, next) =>
 {
