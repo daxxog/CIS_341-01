@@ -10,6 +10,13 @@ public class IdentityContext : IdentityDbContext<ApplicationUser>
     public IdentityContext(DbContextOptions<IdentityContext> options)
         : base(options)
     {
+        // https://stackoverflow.com/a/50042017
+        Database.EnsureCreated();
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite("Filename=identity.db");
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
