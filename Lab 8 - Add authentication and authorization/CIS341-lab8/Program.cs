@@ -11,6 +11,9 @@ var connectionString = builder.Configuration.GetConnectionString("IdentityContex
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<SqliteContext>();
+// "Register the dbcontext before you configure the Identity store"
+// https://stackoverflow.com/a/63104481
+builder.Services.AddDbContext<IdentityContext>();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<IdentityContext>();
