@@ -5,7 +5,8 @@ using Microsoft.EntityFrameworkCore;
 using CIS341_lab8.Areas.Identity.Data;
 
 var builder = WebApplication.CreateBuilder(args);
-var connectionString = builder.Configuration.GetConnectionString("IdentityContextConnection") ?? throw new InvalidOperationException("Connection string 'IdentityContextConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("IdentityContextConnection") ??
+                       throw new InvalidOperationException("Connection string 'IdentityContextConnection' not found.");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -80,7 +81,8 @@ app.Use(async (context, next) =>
 app.UseStaticFiles();
 
 app.UseRouting();
-app.UseAuthentication();;
+app.UseAuthentication();
+;
 
 app.UseAuthorization();
 
