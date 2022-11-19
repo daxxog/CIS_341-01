@@ -18,6 +18,7 @@ namespace CIS341_lab8.Controllers
             _context = context;
         }
 
+        [AllowAnonymous]
         public IActionResult Index(TestDataGenerator tdg)
         {
             return Redirect("/Tags"); // I could use RedirectPermanent, but Redirect works better for testing

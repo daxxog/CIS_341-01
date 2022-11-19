@@ -49,6 +49,7 @@ namespace CIS341_lab8.Controllers
         }
 
         // GET: SharedInformationItem
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             return _context.SharedInformationItems != null
@@ -57,6 +58,7 @@ namespace CIS341_lab8.Controllers
         }
 
         // GET: SharedInformationItem/Details/5
+        [AllowAnonymous]
         public async Task<IActionResult> Details(long? id)
         {
             if (id == null || _context.SharedInformationItems == null)

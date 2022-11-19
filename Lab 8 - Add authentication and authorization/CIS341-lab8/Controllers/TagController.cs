@@ -25,6 +25,7 @@ namespace CIS341_lab8.Controllers
 
         // GET: Tags
         [Route("/Tags")]
+        [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
             if (_context.TaggedInformationItems == null)
@@ -82,6 +83,7 @@ namespace CIS341_lab8.Controllers
 
         // GET: Tag/turducken
         [Route("/Tag/{id}")]
+        [AllowAnonymous]
         public async Task<IActionResult> Details(string id)
         {
             AuthorizationStatus authStatus = _getAuthorizationStatus();
