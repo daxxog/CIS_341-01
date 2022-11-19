@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using CIS341_lab8.Models;
 
 namespace CIS341_lab8.Controllers
 {
+    [Authorize]
     public class TagController : Controller
     {
         private readonly SqliteContext _context;

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using CIS341_lab8.Data.Entities;
 
 namespace CIS341_lab8.Controllers
 {
+    [Authorize]
     public class FavoriteController : Controller
     {
         private readonly SqliteContext _context;
