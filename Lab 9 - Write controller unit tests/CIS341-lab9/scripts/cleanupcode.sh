@@ -17,3 +17,6 @@ make -f cleanupcode.Makefile cleanupcode -j$(nproc)
 
 # cleanupcode breaks Index views
 for view in Views/*/Index.cshtml; do git restore $view; done
+
+# also breaks _LoginPartial
+git restore Views/Shared/_LoginPartial.cshtml
