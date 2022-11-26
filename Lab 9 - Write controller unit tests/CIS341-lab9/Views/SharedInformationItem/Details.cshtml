@@ -1,0 +1,72 @@
+@model CIS341_lab9.Data.Entities.SharedInformationItem
+
+@{
+    AuthorizationStatus authorizationStatus = (AuthorizationStatus)Context.Items["AuthorizationStatus"];
+    ViewData["Title"] = $"Shared Information Item :: {System.Security.SecurityElement.Escape(Model.Title)}";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewData["Title"]</title>
+    <style>
+        .grid-container {
+            padding: 0px;
+            margin-bottom: 0px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 0px;
+        }
+
+        div.right { text-align: right; }
+
+        a.tag { text-decoration: none; }
+
+        a.tag:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="grid-container">
+    <div>
+        <h4><a class="breadcrumbs" asp-action="Index">Shared Information Item</a> :: @Html.DisplayFor(model => model.Title)</h4>
+    </div>
+    <div class="right">
+        @if (authorizationStatus.IsContentManager)
+        {
+            <span>
+                <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@Model?.Id">Delete</a>
+            </span>
+        }
+    </div>
+</div>
+<div>
+    <span class="right"><a class="breadcrumbs" asp-area="" asp-controller="Tag" asp-action="Index">tags</a> ::
+    <span>
+    @foreach (CIS341_lab9.Data.Entities.TaggedInformationItem Tag in Model.InformationItemTaggedInformationItems)
+    {
+        <span>
+            <a class="tag" asp-area="" asp-controller="Tag" asp-action="Details" asp-route-id="@Tag.TagName">@System.Security.SecurityElement.Escape(Tag.TagName)</a>
+        </span>
+    }
+</div>
+
+<div>
+    <hr/>
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+        <dd class="col-sm-10">
+            <pre>@System.Security.SecurityElement.Escape(Model.Details)</pre>
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+</body>
+</html>
