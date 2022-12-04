@@ -79,12 +79,6 @@ namespace CIS341_checkpoint2.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            else
-            {
-                Console.WriteLine(JsonConvert.SerializeObject(userInformationItem));
-                var allErrors = ModelState.Values.SelectMany(v => v.Errors);
-                Console.WriteLine(JsonConvert.SerializeObject(allErrors));
-            }
 
             return View(userInformationItem);
         }
