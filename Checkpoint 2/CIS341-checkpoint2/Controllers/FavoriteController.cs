@@ -35,6 +35,33 @@ namespace CIS341_checkpoint2.Controllers
             return View(await sqliteContext.ToListAsync());
         }
 
+        // POST: Favorite/Delete/5
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(long id)
+        {
+            if (_context.Favorites == null)
+            {
+                return Problem("Entity set 'SqliteContext.Favorites'  is null.");
+            }
+
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            var favorite = await _context.Favorites.Where(m => m.UserId == authStatus.UserId)
+                .Where(m => m.InformationItemId == id).FirstOrDefaultAsync();
+            if (favorite != null)
+            {
+                Console.WriteLine("do delete");
+                _context.Favorites.Remove(favorite);
+            }
+            else
+            {
+                Console.WriteLine(id);
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
 /*
         // GET: Favorite/Details/5
         public async Task<IActionResult> Details(long? id)
