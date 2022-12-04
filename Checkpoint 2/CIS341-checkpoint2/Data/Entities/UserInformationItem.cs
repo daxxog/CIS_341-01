@@ -7,7 +7,7 @@ namespace CIS341_checkpoint2.Data.Entities
     /// <summary>
     /// Entity class representing data for table 'user_information_item'.
     /// </summary>
-    public partial class UserInformationItem
+    public partial class UserInformationItem : IValidatableObject
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="UserInformationItem"/> class.
@@ -69,7 +69,7 @@ namespace CIS341_checkpoint2.Data.Entities
         /// </value>
         /// <seealso cref="UserId" />
         [Display(Name = "User")]
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
 
         #endregion
 
