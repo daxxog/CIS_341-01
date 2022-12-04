@@ -1,37 +1,59 @@
 @model CIS341_checkpoint2.Data.Entities.UserInformationItem
 
 @{
-    ViewData["Title"] = "Details";
+    AuthorizationStatus authorizationStatus = (AuthorizationStatus)Context.Items["AuthorizationStatus"];
+    ViewData["Title"] = $"{System.Security.SecurityElement.Escape(Model.Title)}";
     Layout = "_Layout";
 }
 
-<h1>Details</h1>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewData["Title"]</title>
+    <style>
+        .grid-container {
+            padding: 0px;
+            margin-bottom: 0px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 0px;
+        }
+
+        div.right { text-align: right; }
+
+        a.tag { text-decoration: none; }
+
+        a.tag:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+<div class="grid-container">
+    <div>
+        <h4><a class="breadcrumbs" asp-action="Index">My Information Items</a> :: @Html.DisplayFor(model => model.Title)</h4>
+    </div>
+    <div class="right">
+        <span>
+            <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+            <a asp-action="Delete" asp-route-id="@Model?.Id">Delete</a>
+        </span>
+    </div>
+</div>
 
 <div>
-    <h4>UserInformationItem</h4>
     <hr/>
     <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Details)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Details)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.User.Email)
+            <pre>@System.Security.SecurityElement.Escape(Model.Details)</pre>
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
     <a asp-action="Index">Back to List</a>
 </div>
+</body>
+</html>

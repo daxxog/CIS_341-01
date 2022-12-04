@@ -1,3 +1,4 @@
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CIS341_checkpoint2.Data;
 using CIS341_checkpoint2.Data.Entities;
+using CIS341_checkpoint2.Models;
 
 namespace CIS341_checkpoint2.Controllers
 {
@@ -15,10 +17,12 @@ namespace CIS341_checkpoint2.Controllers
     public class UserInformationItemController : Controller
     {
         private readonly SqliteContext _context;
+        private readonly Func<AuthorizationStatus> _getAuthorizationStatus;
 
         public UserInformationItemController(SqliteContext context)
         {
             _context = context;
+            _getAuthorizationStatus = () => (AuthorizationStatus)HttpContext.Items["AuthorizationStatus"];
         }
 
         // GET: UserInformationItem
@@ -50,7 +54,6 @@ namespace CIS341_checkpoint2.Controllers
         // GET: UserInformationItem/Create
         public IActionResult Create()
         {
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email");
             return View();
         }
 
@@ -60,16 +63,26 @@ namespace CIS341_checkpoint2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
-            [Bind("Id,UserId,Title,Details")] UserInformationItem userInformationItem)
+            [Bind("Title,Details")] UserInformationItem userInformationItem)
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            userInformationItem.User = await _context.Users.Where(m => m.Id == authStatus.UserId).FirstAsync();
+            ModelState.Clear();
+            TryValidateModel(userInformationItem);
+
             if (ModelState.IsValid)
             {
                 _context.Add(userInformationItem);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            else
+            {
+                Console.WriteLine(JsonConvert.SerializeObject(userInformationItem));
+                var allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                Console.WriteLine(JsonConvert.SerializeObject(allErrors));
+            }
 
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", userInformationItem.UserId);
             return View(userInformationItem);
         }
 
@@ -97,12 +110,17 @@ namespace CIS341_checkpoint2.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id,
-            [Bind("Id,UserId,Title,Details")] UserInformationItem userInformationItem)
+            [Bind("Id,Title,Details")] UserInformationItem userInformationItem)
         {
             if (id != userInformationItem.Id)
             {
                 return NotFound();
             }
+
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            userInformationItem.User = await _context.Users.Where(m => m.Id == authStatus.UserId).FirstAsync();
+            ModelState.Clear();
+            TryValidateModel(userInformationItem);
 
             if (ModelState.IsValid)
             {
@@ -123,10 +141,9 @@ namespace CIS341_checkpoint2.Controllers
                     }
                 }
 
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction(nameof(Details), new RouteValueDictionary { { "Id", id.ToString() } });
             }
 
-            ViewData["UserId"] = new SelectList(_context.Users, "Id", "Email", userInformationItem.UserId);
             return View(userInformationItem);
         }
 
