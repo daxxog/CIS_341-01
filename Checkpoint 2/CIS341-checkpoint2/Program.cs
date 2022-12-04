@@ -79,7 +79,7 @@ using (var _context = new SqliteContext(Microsoft.EntityFrameworkCore.SqliteDbCo
 // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-6.0
 app.Use(async (context, next) =>
 {
-    var mode = 1;
+    var mode = 2;
 
     // Do work that can write to the Response.
     switch (mode)
