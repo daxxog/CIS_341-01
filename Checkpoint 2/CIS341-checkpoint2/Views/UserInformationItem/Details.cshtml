@@ -1,7 +1,6 @@
 @model CIS341_checkpoint2.Data.Entities.UserInformationItem
 
 @{
-    AuthorizationStatus authorizationStatus = (AuthorizationStatus)Context.Items["AuthorizationStatus"];
     ViewData["Title"] = $"{System.Security.SecurityElement.Escape(Model.Title)}";
     Layout = "_Layout";
 }
