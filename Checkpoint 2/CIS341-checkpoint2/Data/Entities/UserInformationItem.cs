@@ -90,5 +90,15 @@ namespace CIS341_checkpoint2.Data.Entities
                     new[] { nameof(Details) });
             }
         }
+
+        // merge using + operator (used in Update CRUD)
+        // https://learn.microsoft.com/en-us/dotnet/csharp/language-reference/operators/operator-overloading
+        public static UserInformationItem operator +(UserInformationItem left, UserInformationItem right)
+        {
+            left.Title = right.Title;
+            left.Details = right.Details;
+
+            return left;
+        }
     }
 }

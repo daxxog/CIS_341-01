@@ -47,18 +47,29 @@ namespace CIS341_checkpoint2.Data
                 PasswordHash = "<something>",
                 ContentManager = false,
             };
+            User user3 = new User
+            {
+                Id = 3,
+                Email = "user3@example.com",
+                PasswordHash = "<something>",
+                ContentManager = false,
+            };
             context.Add(user1);
             context.Add(user2);
+            context.Add(user3);
 
-            UserInformationItem item = new UserInformationItem
+            for (int i = 1; i <= 10; i++)
             {
-                Id = 1,
-                User = user2,
-                Title = "Example information item #1",
-                Details = fmtDetails(
-                    "Bacon ipsum dolor amet pastrami sausage short loin, cow beef short ribs pork chop burgdoggen leberkas biltong andouille. Brisket turducken venison ham. Ground round shoulder shankle tongue short ribs. Drumstick t-bone pig sausage pastrami beef ribs chuck beef."),
-            };
-            context.Add(item);
+                UserInformationItem item = new UserInformationItem
+                {
+                    Id = i,
+                    User = (i % 2 == 0) ? user2 : user3,
+                    Title = $"Example information item #{i}",
+                    Details = fmtDetails(
+                        "Bacon ipsum dolor amet pastrami sausage short loin, cow beef short ribs pork chop burgdoggen leberkas biltong andouille. Brisket turducken venison ham. Ground round shoulder shankle tongue short ribs. Drumstick t-bone pig sausage pastrami beef ribs chuck beef."),
+                };
+                context.Add(item);
+            }
 
             SharedInformationItem sharedItem1 = new SharedInformationItem
             {

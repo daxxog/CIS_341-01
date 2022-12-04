@@ -28,7 +28,9 @@ namespace CIS341_checkpoint2.Controllers
         // GET: UserInformationItem
         public async Task<IActionResult> Index()
         {
-            var sqliteContext = _context.UserInformationItems.Include(u => u.User);
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            var sqliteContext = _context.UserInformationItems.Where(m => m.UserId == authStatus.UserId)
+                .Include(u => u.User);
             return View(await sqliteContext.ToListAsync());
         }
 
@@ -40,7 +42,10 @@ namespace CIS341_checkpoint2.Controllers
                 return NotFound();
             }
 
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+
             var userInformationItem = await _context.UserInformationItems
+                .Where(m => m.UserId == authStatus.UserId)
                 .Include(u => u.User)
                 .FirstOrDefaultAsync(m => m.Id == id);
             if (userInformationItem == null)
@@ -67,8 +72,6 @@ namespace CIS341_checkpoint2.Controllers
         {
             AuthorizationStatus authStatus = _getAuthorizationStatus();
             userInformationItem.User = await _context.Users.Where(m => m.Id == authStatus.UserId).FirstAsync();
-            ModelState.Clear();
-            TryValidateModel(userInformationItem);
 
             if (ModelState.IsValid)
             {
@@ -94,7 +97,9 @@ namespace CIS341_checkpoint2.Controllers
                 return NotFound();
             }
 
-            var userInformationItem = await _context.UserInformationItems.FindAsync(id);
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            var userInformationItem = await _context.UserInformationItems.Where(m => m.Id == id)
+                .Where(m => m.UserId == authStatus.UserId).FirstOrDefaultAsync();
             if (userInformationItem == null)
             {
                 return NotFound();
@@ -118,9 +123,15 @@ namespace CIS341_checkpoint2.Controllers
             }
 
             AuthorizationStatus authStatus = _getAuthorizationStatus();
-            userInformationItem.User = await _context.Users.Where(m => m.Id == authStatus.UserId).FirstAsync();
-            ModelState.Clear();
-            TryValidateModel(userInformationItem);
+            var _userInformationItem = userInformationItem;
+            userInformationItem = await _context.UserInformationItems.Where(m => m.Id == id)
+                .Where(m => m.UserId == authStatus.UserId).Include(u => u.User).FirstOrDefaultAsync();
+            if (userInformationItem == null)
+            {
+                return NotFound();
+            }
+
+            userInformationItem += _userInformationItem;
 
             if (ModelState.IsValid)
             {
@@ -155,9 +166,9 @@ namespace CIS341_checkpoint2.Controllers
                 return NotFound();
             }
 
-            var userInformationItem = await _context.UserInformationItems
-                .Include(u => u.User)
-                .FirstOrDefaultAsync(m => m.Id == id);
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            var userInformationItem = await _context.UserInformationItems.Where(m => m.Id == id)
+                .Where(m => m.UserId == authStatus.UserId).FirstOrDefaultAsync();
             if (userInformationItem == null)
             {
                 return NotFound();
@@ -176,7 +187,9 @@ namespace CIS341_checkpoint2.Controllers
                 return Problem("Entity set 'SqliteContext.UserInformationItems'  is null.");
             }
 
-            var userInformationItem = await _context.UserInformationItems.FindAsync(id);
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            var userInformationItem = await _context.UserInformationItems.Where(m => m.Id == id)
+                .Where(m => m.UserId == authStatus.UserId).FirstOrDefaultAsync();
             if (userInformationItem != null)
             {
                 _context.UserInformationItems.Remove(userInformationItem);
