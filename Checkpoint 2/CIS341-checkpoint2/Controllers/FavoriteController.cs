@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using CIS341_checkpoint2.Data;
 using CIS341_checkpoint2.Data.Entities;
+using CIS341_checkpoint2.Models;
 
 namespace CIS341_checkpoint2.Controllers
 {
@@ -15,21 +16,26 @@ namespace CIS341_checkpoint2.Controllers
     public class FavoriteController : Controller
     {
         private readonly SqliteContext _context;
+        private readonly Func<AuthorizationStatus> _getAuthorizationStatus;
 
         public FavoriteController(SqliteContext context)
         {
             _context = context;
+            _getAuthorizationStatus = () => (AuthorizationStatus)HttpContext.Items["AuthorizationStatus"];
         }
 
         // GET: Favorites
         [Route("/Favorites")]
         public async Task<IActionResult> Index()
         {
-            var sqliteContext = _context.Favorites.Include(f => f.InformationItemSharedInformationItem)
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            var sqliteContext = _context.Favorites.Where(m => m.UserId == authStatus.UserId)
+                .Include(f => f.InformationItemSharedInformationItem)
                 .Include(f => f.User);
             return View(await sqliteContext.ToListAsync());
         }
 
+/*
         // GET: Favorite/Details/5
         public async Task<IActionResult> Details(long? id)
         {
@@ -182,5 +188,6 @@ namespace CIS341_checkpoint2.Controllers
         {
             return (_context.Favorites?.Any(e => e.UserId == id)).GetValueOrDefault();
         }
+*/
     }
 }

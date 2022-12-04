@@ -93,7 +93,7 @@ namespace CIS341_checkpoint2.Data
 
             Favorite favorite = new Favorite
             {
-                User = user2,
+                User = user3,
                 InformationItemSharedInformationItem = sharedItem1,
             };
             context.Add(favorite);
