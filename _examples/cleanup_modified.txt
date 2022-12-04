@@ -1,0 +1,1 @@
+cat <(echo set -x) <(git status | grep 'modified’ | sed 's/modified://g; s/ //g' | tr -d '\t' | sed 's/^/scripts\/1cleanupcode.sh /g; s/$/ \&/g') | bash
