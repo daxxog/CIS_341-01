@@ -59,6 +59,7 @@
     </dl>
 
     <form asp-action="Delete">
+        @Html.AntiForgeryToken()
         <input type="hidden" asp-for="Id"/>
         <div class="grid-container">
             <div>

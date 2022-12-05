@@ -27,6 +27,7 @@
     </dl>
 
     <form asp-action="Delete">
+        @Html.AntiForgeryToken()
         <input type="hidden" asp-for="UserId"/>
         <input type="hidden" asp-for="InformationItemId"/>
         <input type="submit" value="Delete" class="btn btn-danger"/> |
