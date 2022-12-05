@@ -28,7 +28,7 @@ namespace CIS341_checkpoint2.Data.Entities
         /// The property value representing column 'user_id'.
         /// </value>
         [Display(Name = "User ID")]
-        public long UserId { get; set; }
+        public long? UserId { get; set; }
 
         /// <summary>
         /// Gets or sets the property value representing column 'information_item_id'.
@@ -51,7 +51,7 @@ namespace CIS341_checkpoint2.Data.Entities
         /// </value>
         /// <seealso cref="InformationItemId" />
         [Display(Name = "Shared Information Item")]
-        public virtual SharedInformationItem InformationItemSharedInformationItem { get; set; }
+        public virtual SharedInformationItem? InformationItemSharedInformationItem { get; set; }
 
         /// <summary>
         /// Gets or sets the navigation property for entity <see cref="User" />.
@@ -61,7 +61,7 @@ namespace CIS341_checkpoint2.Data.Entities
         /// </value>
         /// <seealso cref="UserId" />
         [Display(Name = "User")]
-        public virtual User User { get; set; }
+        public virtual User? User { get; set; }
 
         #endregion
     }

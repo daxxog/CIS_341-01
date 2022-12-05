@@ -26,6 +26,25 @@
         a.tag { text-decoration: none; }
 
         a.tag:hover { text-decoration: underline; }
+
+        .star {
+            text-align: right;
+            font-size: 150%;
+        }
+
+        .favorite {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .favorite:hover {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .favorite:before { content: '☆' }
+
+        .favorite:hover:before { content: '★' }
     </style>
 </head>
 <body>
@@ -40,6 +59,16 @@
                 <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
                 <a asp-action="Delete" asp-route-id="@Model?.Id">Delete</a>
             </span>
+        }
+        else
+        {
+            <form asp-area="" asp-controller="Favorite" asp-action="Create" id="favoriteform">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="InformationItemId" asp-for="@Model.Id"/>
+                <div class="star">
+                    <a class="favorite" href="javascript:{}" onclick="document.getElementById('favoriteform').submit();">Favorite</a>
+                </div>
+            </form>
         }
     </div>
 </div>

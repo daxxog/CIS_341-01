@@ -62,6 +62,32 @@ namespace CIS341_checkpoint2.Controllers
             return RedirectToAction(nameof(Index));
         }
 
+        // POST: Favorite/Create
+        // To protect from overposting attacks, enable the specific properties you want to bind to.
+        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("InformationItemId")] Favorite favorite)
+        {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            favorite.UserId = authStatus.UserId;
+
+            if (ModelState.IsValid)
+            {
+                var maybeExistsFavorite = await _context.Favorites.Where(m => m.UserId == authStatus.UserId)
+                    .Where(m => m.InformationItemId == favorite.InformationItemId).FirstOrDefaultAsync();
+
+                if (maybeExistsFavorite == null)
+                {
+                    _context.Add(favorite);
+                    await _context.SaveChangesAsync();
+                }
+            }
+
+            return RedirectToAction("Details", "SharedInformationItem",
+                new RouteValueDictionary { { "Id", favorite.InformationItemId.ToString() } });
+        }
+
 /*
         // GET: Favorite/Details/5
         public async Task<IActionResult> Details(long? id)
