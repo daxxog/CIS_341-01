@@ -50,12 +50,7 @@ namespace CIS341_checkpoint2.Controllers
                 .Where(m => m.InformationItemId == id).FirstOrDefaultAsync();
             if (favorite != null)
             {
-                Console.WriteLine("do delete");
                 _context.Favorites.Remove(favorite);
-            }
-            else
-            {
-                Console.WriteLine(id);
             }
 
             await _context.SaveChangesAsync();
