@@ -18,10 +18,12 @@ namespace CIS341_checkpoint2.Controllers
     {
         private readonly SqliteContext _context;
         private readonly Func<SharedInformationItemCreateUpdateModel, List<TaggedInformationItem>> _deriveTags;
+        private readonly Func<AuthorizationStatus> _getAuthorizationStatus;
 
         public SharedInformationItemController(SqliteContext context)
         {
             _context = context;
+            _getAuthorizationStatus = () => (AuthorizationStatus)HttpContext.Items["AuthorizationStatus"];
             _deriveTags = (sharedInformationItemCreateUpdate) =>
             {
                 // derive the tags from a comma separated string and validate them
@@ -68,12 +70,19 @@ namespace CIS341_checkpoint2.Controllers
 
             var sharedInformationItem = await _context.SharedInformationItems.Where(m => m.Id == id)
                 .Include(m => m.InformationItemTaggedInformationItems).FirstAsync();
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            var sharedInformationItemIsFavorite = await _context.Favorites.Where(m => m.UserId == authStatus.UserId)
+                .Where(m => m.InformationItemId == id).FirstOrDefaultAsync();
+
             if (sharedInformationItem == null)
             {
                 return NotFound();
             }
 
-            return View(sharedInformationItem);
+            return View(new MyFavoriteItemModel
+            {
+                SharedInformationItem = sharedInformationItem, MyFavorite = sharedInformationItemIsFavorite != null
+            });
         }
 
         // GET: SharedInformationItem/Create

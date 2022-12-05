@@ -38,7 +38,7 @@ namespace CIS341_checkpoint2.Controllers
         // POST: Favorite/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(long id)
+        public async Task<IActionResult> DeleteConfirmed(long id, string? ReturnTo)
         {
             if (_context.Favorites == null)
             {
@@ -59,7 +59,16 @@ namespace CIS341_checkpoint2.Controllers
             }
 
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+
+            if (ReturnTo == "SharedInformationItem")
+            {
+                return RedirectToAction("Details", ReturnTo,
+                    new RouteValueDictionary { { "Id", favorite.InformationItemId.ToString() } });
+            }
+            else
+            {
+                return RedirectToAction(nameof(Index));
+            }
         }
 
         // POST: Favorite/Create

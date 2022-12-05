@@ -1,8 +1,8 @@
-@model CIS341_checkpoint2.Data.Entities.SharedInformationItem
+@model CIS341_checkpoint2.Models.MyFavoriteItemModel
 
 @{
     AuthorizationStatus authorizationStatus = (AuthorizationStatus)Context.Items["AuthorizationStatus"];
-    ViewData["Title"] = $"Shared Information Item :: {System.Security.SecurityElement.Escape(Model.Title)}";
+    ViewData["Title"] = $"Shared Information Item :: {System.Security.SecurityElement.Escape(Model.SharedInformationItem.Title)}";
     Layout = "_Layout";
 }
 
@@ -32,12 +32,12 @@
             font-size: 150%;
         }
 
-        .favorite {
+        .favorite, .unfavorite {
             color: #000000;
             text-decoration: none;
         }
 
-        .favorite:hover {
+        .favorite:hover, .unfavorite:hover {
             text-decoration: none;
             cursor: pointer;
         }
@@ -45,37 +45,55 @@
         .favorite:before { content: '☆' }
 
         .favorite:hover:before { content: '★' }
+
+        .unfavorite:before { content: '★' }
+
+        .unfavorite:hover:before { content: '☆' }
     </style>
 </head>
 <body>
 <div class="grid-container">
     <div>
-        <h4><a class="breadcrumbs" asp-action="Index">Shared Information Item</a> :: @Html.DisplayFor(model => model.Title)</h4>
+        <h4><a class="breadcrumbs" asp-action="Index">Shared Information Item</a> :: @Html.DisplayFor(model => model.SharedInformationItem.Title)</h4>
     </div>
     <div class="right">
         @if (authorizationStatus.IsContentManager)
         {
             <span>
-                <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
-                <a asp-action="Delete" asp-route-id="@Model?.Id">Delete</a>
+                <a asp-action="Edit" asp-route-id="@Model?.SharedInformationItem.Id">Edit</a> |
+                <a asp-action="Delete" asp-route-id="@Model?.SharedInformationItem.Id">Delete</a>
             </span>
         }
         else
         {
-            <form asp-area="" asp-controller="Favorite" asp-action="Create" id="favoriteform">
-                @Html.AntiForgeryToken()
-                <input type="hidden" name="InformationItemId" asp-for="@Model.Id"/>
-                <div class="star">
-                    <a class="favorite" href="javascript:{}" onclick="document.getElementById('favoriteform').submit();">Favorite</a>
-                </div>
-            </form>
+            @if (Model.MyFavorite)
+            {
+                <form asp-area="" asp-controller="Favorite" asp-action="Delete" id="unfavoriteform">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="Id" asp-for="@Model.SharedInformationItem.Id"/>
+                    <input type="hidden" name="ReturnTo" value="SharedInformationItem"/>
+                    <div class="star">
+                        <a class="unfavorite" href="javascript:{}" onclick="document.getElementById('unfavoriteform').submit();">Unfavorite</a>
+                    </div>
+                </form>
+            }
+            else
+            {
+                <form asp-area="" asp-controller="Favorite" asp-action="Create" id="favoriteform">
+                    @Html.AntiForgeryToken()
+                    <input type="hidden" name="InformationItemId" asp-for="@Model.SharedInformationItem.Id"/>
+                    <div class="star">
+                        <a class="favorite" href="javascript:{}" onclick="document.getElementById('favoriteform').submit();">Favorite</a>
+                    </div>
+                </form>
+            }
         }
     </div>
 </div>
 <div>
     <span class="right"><a class="breadcrumbs" asp-area="" asp-controller="Tag" asp-action="Index">tags</a> ::
     <span>
-    @foreach (CIS341_checkpoint2.Data.Entities.TaggedInformationItem Tag in Model.InformationItemTaggedInformationItems)
+    @foreach (CIS341_checkpoint2.Data.Entities.TaggedInformationItem Tag in Model.SharedInformationItem.InformationItemTaggedInformationItems)
     {
         <span>
             <a class="tag" asp-area="" asp-controller="Tag" asp-action="Details" asp-route-id="@Tag.TagName">@System.Security.SecurityElement.Escape(Tag.TagName)</a>
@@ -87,10 +105,10 @@
     <hr/>
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Details)
+            @Html.DisplayNameFor(model => model.SharedInformationItem.Details)
         </dt>
         <dd class="col-sm-10">
-            <pre>@System.Security.SecurityElement.Escape(Model.Details)</pre>
+            <pre>@System.Security.SecurityElement.Escape(Model.SharedInformationItem.Details)</pre>
         </dd>
     </dl>
 </div>
