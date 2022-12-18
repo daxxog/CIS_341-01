@@ -37,11 +37,6 @@ namespace CIS341_checkpoint3.Data.Mapping
                 .HasColumnName("email")
                 .HasColumnType("VARCHAR");
 
-            builder.Property(t => t.PasswordHash)
-                .IsRequired()
-                .HasColumnName("password_hash")
-                .HasColumnType("VARCHAR");
-
             builder.Property(t => t.ContentManager)
                 .IsRequired()
                 .HasColumnName("content_manager")
@@ -70,9 +65,6 @@ namespace CIS341_checkpoint3.Data.Mapping
 
             /// <summary>Column Name constant for property <see cref="CIS341_checkpoint3.Data.Entities.User.Email" /></summary>
             public const string Email = "email";
-
-            /// <summary>Column Name constant for property <see cref="CIS341_checkpoint3.Data.Entities.User.PasswordHash" /></summary>
-            public const string PasswordHash = "password_hash";
 
             /// <summary>Column Name constant for property <see cref="CIS341_checkpoint3.Data.Entities.User.ContentManager" /></summary>
             public const string ContentManager = "content_manager";

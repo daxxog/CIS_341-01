@@ -43,14 +43,6 @@ namespace CIS341_checkpoint3.Data.Entities
         public string Email { get; set; }
 
         /// <summary>
-        /// Gets or sets the property value representing column 'password_hash'.
-        /// </summary>
-        /// <value>
-        /// The property value representing column 'password_hash'.
-        /// </value>
-        public string PasswordHash { get; set; }
-
-        /// <summary>
         /// Gets or sets the property value representing column 'content_manager'.
         /// </summary>
         /// <value>

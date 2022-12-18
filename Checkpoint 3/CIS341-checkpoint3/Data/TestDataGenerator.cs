@@ -33,25 +33,23 @@ namespace CIS341_checkpoint3.Data
                 return String.Join(" ", _returnWordList);
             };
 
+            // see Areas/Identity/Data/DefaultIdentities.cs for password
             User user1 = new User
             {
                 Id = 1,
                 Email = "user1@example.com",
-                PasswordHash = "<something>",
                 ContentManager = true,
             };
             User user2 = new User
             {
                 Id = 2,
                 Email = "user2@example.com",
-                PasswordHash = "<something>",
                 ContentManager = false,
             };
             User user3 = new User
             {
                 Id = 3,
                 Email = "user3@example.com",
-                PasswordHash = "<something>",
                 ContentManager = false,
             };
             context.Add(user1);

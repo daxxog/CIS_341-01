@@ -1,9 +1,9 @@
 using CIS341_checkpoint3.Data;
-using CIS341_checkpoint3.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using CIS341_checkpoint3.Areas.Identity.Data;
+using CIS341_checkpoint3.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("IdentityContextConnection") ??
@@ -40,6 +40,8 @@ builder.Services.AddAuthorization(options =>
         .Build();
 });
 
+builder.Services.AddScoped<IdentityMiddleware>();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -75,42 +77,38 @@ using (var _context = new SqliteContext(Microsoft.EntityFrameworkCore.SqliteDbCo
     }
 }
 
-
-// https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-6.0
-app.Use(async (context, next) =>
+using (var _context = new IdentityContext(Microsoft.EntityFrameworkCore.SqliteDbContextOptionsBuilderExtensions
+           .UseSqlite(new Microsoft.EntityFrameworkCore.DbContextOptionsBuilder<IdentityContext>()).Options))
 {
-    var mode = 2;
+    var dig = new DefaultIdentitiesGenerator();
 
-    // Do work that can write to the Response.
-    switch (mode)
+    // not the best way to go about this, but works for testing
+    try
     {
-        case 1:
-            context.Items.Add("AuthorizationStatus", new AuthorizationStatus
-            {
-                UserId = 1,
-                IsContentManager = true,
-            });
-            break;
-        case 2:
-            context.Items.Add("AuthorizationStatus", new AuthorizationStatus
-            {
-                UserId = 2,
-                IsContentManager = false,
-            });
-            break;
+        dig.generate(_context);
+        Console.WriteLine("identity database generated");
     }
+    catch (Exception e)
+    {
+        // probably because we already have the data, but
+        // also could be some other error so we print it out
+        // blanket handling exceptions like this is bad practice
+        Console.WriteLine(e.StackTrace);
+        Console.WriteLine("<Identity> This is fine ;)");
+    }
+}
 
-    await next.Invoke();
-});
 
 // app.UseHttpsRedirection(); // nahh
 app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthentication();
-;
 
 app.UseAuthorization();
+
+// https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-6.0
+app.UseMiddleware<IdentityMiddleware>();
 
 app.MapControllerRoute(
     name: "default",
