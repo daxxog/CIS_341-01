@@ -1,0 +1,48 @@
+@model IEnumerable<CIS341_checkpoint3.Models.WeightedTagModel>
+
+@{
+    ViewData["Title"] = "Tags";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>Tags</title>
+    <style>
+        h1,h2,h3,h4,h5,h6 {
+            display: inline;
+        }
+        a.tag {
+            text-decoration: none;
+        }
+        a.tag:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="tag-container">
+        @foreach (var item in Model)
+        {
+            @switch (item.Weight)
+            {
+                case 1: <h1><a class="tag" asp-action="Details" asp-route-id="@item.TagName">@System.Security.SecurityElement.Escape(item.TagName)</a></h1>
+                break;
+                case 2: <h2><a class="tag" asp-action="Details" asp-route-id="@item.TagName">@System.Security.SecurityElement.Escape(item.TagName)</a></h2>
+                break;
+                case 3: <h3><a class="tag" asp-action="Details" asp-route-id="@item.TagName">@System.Security.SecurityElement.Escape(item.TagName)</a></h3>
+                break;
+                case 4: <h4><a class="tag" asp-action="Details" asp-route-id="@item.TagName">@System.Security.SecurityElement.Escape(item.TagName)</a></h4>
+                break;
+                case 5: <h5><a class="tag" asp-action="Details" asp-route-id="@item.TagName">@System.Security.SecurityElement.Escape(item.TagName)</a></h5>
+                break;
+                case 6: <h6><a class="tag" asp-action="Details" asp-route-id="@item.TagName">@System.Security.SecurityElement.Escape(item.TagName)</a></h6>
+                break;
+            }
+        }
+    </div>
+</body>
+</html>

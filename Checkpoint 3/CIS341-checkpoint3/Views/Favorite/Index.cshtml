@@ -1,0 +1,76 @@
+@model IEnumerable<CIS341_checkpoint3.Data.Entities.Favorite>
+
+@{
+    ViewData["Title"] = "Favorites";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewData["Title"]</title>
+    <style>
+        .grid-container {
+            padding: 1em;
+            margin-bottom: 1.5em;
+            border: 3px solid #888888;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+        }
+
+        .grid-container:hover { border: 3px solid #444444; }
+
+        .star {
+            text-align: right;
+            font-size: 150%;
+        }
+
+        .favorite {
+            color: #000000;
+            text-decoration: none;
+        }
+
+        .favorite:hover {
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .favorite:before { content: '★' }
+
+        .favorite:hover:before { content: '☆' }
+    </style>
+</head>
+<body>
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    Favorites are shared items which you have saved. You can find new shared items by <a asp-area="" asp-controller="Tag" asp-action="Index">browsing by tags</a>.
+</p>
+<div>
+    <hr/>
+    @foreach (var item in Model)
+    {
+        <div class="grid-container">
+            <div class="title">
+                <a asp-area="" asp-controller="SharedInformationItem" asp-action="Details" asp-route-id="@item.InformationItemSharedInformationItem.Id">@Html.DisplayFor(modelItem => item.InformationItemSharedInformationItem.Title)</a>
+            </div>
+            @{
+                var formID = $"form{item.InformationItemSharedInformationItem.Id}";
+                // this could be some nasty XSS if the ID's were not integers and also were user-modifiable
+                var formOnClick = $"document.getElementById('{formID}').submit();";
+            }
+            <form asp-action="Delete" id="@formID">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="Id" asp-for="@item.InformationItemSharedInformationItem.Id"/>
+                <div class="star">
+                    <a class="favorite" href="javascript:{}" onclick="@formOnClick">Unfavorite</a>
+                </div>
+            </form>
+        </div>
+    }
+</div>
+</body>
+</html>

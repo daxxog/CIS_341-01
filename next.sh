@@ -2,14 +2,14 @@
 set -x
 
 # SOURCE LAB
-SOURCE_LABN="lab9"
-SOURCE_LAB_ALT="Lab-09"
-SOURCE_LAB="Lab 9 - Write controller unit tests"
+SOURCE_LABN="checkpoint2"
+SOURCE_LAB_ALT="Checkpoint-2"
+SOURCE_LAB="Checkpoint 2"
 
 # NEW LAB
-DEST_LABN="checkpoint2"
-DEST_LAB_ALT="Checkpoint-2"
-DEST_LAB="Checkpoint 2"
+DEST_LABN="checkpoint3"
+DEST_LAB_ALT="Checkpoint-3"
+DEST_LAB="Checkpoint 3"
 
 
 SOURCE_PROJ="CIS341-${SOURCE_LABN}"

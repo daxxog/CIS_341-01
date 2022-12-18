@@ -1,0 +1,72 @@
+@model CIS341_checkpoint3.Models.TagModel
+
+@{
+    AuthorizationStatus authorizationStatus = (AuthorizationStatus)Context.Items["AuthorizationStatus"];
+    ViewData["TagName"] = System.Security.SecurityElement.Escape(Model.TagName);
+    ViewData["Title"] = $"tag::{ViewData["TagName"]}";
+    Layout = "_Layout";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width"/>
+    <title>@ViewData["Title"]</title>
+    <style>
+        .grid-container {
+            padding: 1em;
+            margin-bottom: 1.5em;
+            border: 3px solid #888888;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-gap: 20px;
+        }
+
+        .grid-container:hover { border: 3px solid #444444; }
+
+        .star {
+            text-align: right;
+            font-size: 150%;
+        }
+    </style>
+</head>
+<body>
+
+<div>
+    <h4><a class="breadcrumbs" asp-action="Index">tag</a> :: @ViewData["TagName"]</h4>
+    <hr/>
+    @foreach (var item in Model.MaybeMyFavoriteItems)
+    {
+        <div class="grid-container">
+            <div class="title">
+                <a asp-area="" asp-controller="SharedInformationItem" asp-action="Details" asp-route-id="@item.SharedInformationItem.Id">@Html.DisplayFor(modelItem => item.SharedInformationItem.Title)</a>
+            </div>
+            @if (authorizationStatus.IsContentManager)
+            {
+                <div class="notstar">
+                    &nbsp;
+                </div>
+            }
+            else
+            {
+                <div class="star">
+                    @if (item.MyFavorite)
+                    {
+                        <span class="favorite">★</span>
+                    }
+                    else
+                    {
+                        <span class="notfavorite">☆</span>
+                    }
+                </div>
+            }
+        </div>
+    }
+</div>
+<hr/>
+<div>
+    <a asp-action="Index">Back to Tags</a>
+</div>
+</body>
+</html>

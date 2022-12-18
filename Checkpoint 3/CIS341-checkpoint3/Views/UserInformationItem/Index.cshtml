@@ -1,0 +1,33 @@
+@model IEnumerable<CIS341_checkpoint3.Data.Entities.UserInformationItem>
+
+@{
+    ViewData["Title"] = "My Information Items";
+    Layout = "_Layout";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <span>
+        <a asp-action="Create">Create New</a>
+    </span>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Title)
+        </th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a asp-action="Details" asp-route-id="@item.Id">@Html.DisplayFor(modelItem => item.Title)</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
