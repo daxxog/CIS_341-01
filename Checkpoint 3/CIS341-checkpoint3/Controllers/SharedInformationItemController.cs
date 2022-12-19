@@ -88,6 +88,12 @@ namespace CIS341_checkpoint3.Controllers
         // GET: SharedInformationItem/Create
         public IActionResult Create()
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == false)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             return View();
         }
 
@@ -99,6 +105,12 @@ namespace CIS341_checkpoint3.Controllers
         public async Task<IActionResult> Create(
             [Bind("Id,Title,Tags,Details")] SharedInformationItemCreateUpdateModel sharedInformationItemCreateUpdate)
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == false)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             List<TaggedInformationItem> Tags = _deriveTags(sharedInformationItemCreateUpdate);
 
             if (ModelState.IsValid)
@@ -116,6 +128,12 @@ namespace CIS341_checkpoint3.Controllers
         // GET: SharedInformationItem/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == false)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             if (id == null || _context.SharedInformationItems == null)
             {
                 return NotFound();
@@ -139,6 +157,12 @@ namespace CIS341_checkpoint3.Controllers
         public async Task<IActionResult> Edit(long id,
             [Bind("Id,Title,Tags,Details")] SharedInformationItemCreateUpdateModel sharedInformationItemCreateUpdate)
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == false)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             if (id != sharedInformationItemCreateUpdate.Id)
             {
                 return NotFound();
@@ -183,6 +207,12 @@ namespace CIS341_checkpoint3.Controllers
         // GET: SharedInformationItem/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == false)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             if (id == null || _context.SharedInformationItems == null)
             {
                 return NotFound();
@@ -203,6 +233,12 @@ namespace CIS341_checkpoint3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == false)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             if (_context.SharedInformationItems == null)
             {
                 return Problem("Entity set 'SqliteContext.SharedInformationItems'  is null.");
