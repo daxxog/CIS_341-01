@@ -7,12 +7,8 @@
     Layout = "_Layout";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width"/>
-    <title>@ViewData["Title"]</title>
+@section PageCss
+{
     <style>
         .grid-container {
             padding: 1em;
@@ -30,8 +26,7 @@
             font-size: 150%;
         }
     </style>
-</head>
-<body>
+}
 
 <div>
     <h4><a class="breadcrumbs" asp-action="Index">tag</a> :: @ViewData["TagName"]</h4>
@@ -68,5 +63,3 @@
 <div>
     <a asp-action="Index">Back to Tags</a>
 </div>
-</body>
-</html>

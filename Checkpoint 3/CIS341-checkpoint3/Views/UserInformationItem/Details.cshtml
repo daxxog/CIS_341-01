@@ -5,12 +5,8 @@
     Layout = "_Layout";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width"/>
-    <title>@ViewData["Title"]</title>
+@section PageCss
+{
     <style>
         .grid-container {
             padding: 0px;
@@ -26,8 +22,8 @@
 
         a.tag:hover { text-decoration: underline; }
     </style>
-</head>
-<body>
+}
+
 <div class="grid-container">
     <div>
         <h4><a class="breadcrumbs" asp-action="Index">My Information Items</a> :: @Html.DisplayFor(model => model.Title)</h4>
@@ -54,5 +50,3 @@
 <div>
     <a asp-action="Index">Back to List</a>
 </div>
-</body>
-</html>

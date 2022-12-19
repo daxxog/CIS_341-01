@@ -5,12 +5,8 @@
     Layout = "_Layout";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width"/>
-    <title>@ViewData["Title"]</title>
+@section PageCss
+{
     <style>
         .grid-container {
             padding: 1em;
@@ -42,8 +38,8 @@
 
         .favorite:hover:before { content: '☆' }
     </style>
-</head>
-<body>
+}
+
 <h1>@ViewData["Title"]</h1>
 
 <p>
@@ -72,5 +68,3 @@
         </div>
     }
 </div>
-</body>
-</html>

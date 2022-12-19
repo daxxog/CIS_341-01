@@ -5,12 +5,8 @@
     Layout = "_Layout";
 }
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width"/>
-    <title>@ViewData["Title"]</title>
+@section PageCss
+{
     <style>
         .grid-container {
             padding: 0px;
@@ -26,8 +22,8 @@
 
         .btn-back:hover { border: 1px solid #000000; }
     </style>
-</head>
-<body>
+}
+
 <h1>Edit</h1>
 
 <h4>My Information Item</h4>
@@ -62,6 +58,3 @@
         </form>
     </div>
 </div>
-
-</body>
-</html>
