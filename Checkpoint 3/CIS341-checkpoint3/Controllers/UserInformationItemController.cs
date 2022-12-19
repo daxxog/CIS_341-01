@@ -29,6 +29,11 @@ namespace CIS341_checkpoint3.Controllers
         public async Task<IActionResult> Index()
         {
             AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == true)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             var sqliteContext = _context.UserInformationItems.Where(m => m.UserId == authStatus.UserId)
                 .Include(u => u.User);
             return View(await sqliteContext.ToListAsync());
@@ -37,12 +42,16 @@ namespace CIS341_checkpoint3.Controllers
         // GET: UserInformationItem/Details/5
         public async Task<IActionResult> Details(long? id)
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == true)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             if (id == null || _context.UserInformationItems == null)
             {
                 return NotFound();
             }
-
-            AuthorizationStatus authStatus = _getAuthorizationStatus();
 
             var userInformationItem = await _context.UserInformationItems
                 .Where(m => m.UserId == authStatus.UserId)
@@ -59,6 +68,12 @@ namespace CIS341_checkpoint3.Controllers
         // GET: UserInformationItem/Create
         public IActionResult Create()
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == true)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             return View();
         }
 
@@ -71,6 +86,11 @@ namespace CIS341_checkpoint3.Controllers
             [Bind("Title,Details")] UserInformationItem userInformationItem)
         {
             AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == true)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             userInformationItem.User = await _context.Users.Where(m => m.Id == authStatus.UserId).FirstAsync();
 
             if (ModelState.IsValid)
@@ -86,12 +106,17 @@ namespace CIS341_checkpoint3.Controllers
         // GET: UserInformationItem/Edit/5
         public async Task<IActionResult> Edit(long? id)
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == true)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             if (id == null || _context.UserInformationItems == null)
             {
                 return NotFound();
             }
 
-            AuthorizationStatus authStatus = _getAuthorizationStatus();
             var userInformationItem = await _context.UserInformationItems.Where(m => m.Id == id)
                 .Where(m => m.UserId == authStatus.UserId).FirstOrDefaultAsync();
             if (userInformationItem == null)
@@ -111,12 +136,17 @@ namespace CIS341_checkpoint3.Controllers
         public async Task<IActionResult> Edit(long id,
             [Bind("Id,Title,Details")] UserInformationItem userInformationItem)
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == true)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             if (id != userInformationItem.Id)
             {
                 return NotFound();
             }
 
-            AuthorizationStatus authStatus = _getAuthorizationStatus();
             var _userInformationItem = userInformationItem;
             userInformationItem = await _context.UserInformationItems.Where(m => m.Id == id)
                 .Where(m => m.UserId == authStatus.UserId).Include(u => u.User).FirstOrDefaultAsync();
@@ -155,12 +185,17 @@ namespace CIS341_checkpoint3.Controllers
         // GET: UserInformationItem/Delete/5
         public async Task<IActionResult> Delete(long? id)
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == true)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             if (id == null || _context.UserInformationItems == null)
             {
                 return NotFound();
             }
 
-            AuthorizationStatus authStatus = _getAuthorizationStatus();
             var userInformationItem = await _context.UserInformationItems.Where(m => m.Id == id)
                 .Where(m => m.UserId == authStatus.UserId).FirstOrDefaultAsync();
             if (userInformationItem == null)
@@ -176,12 +211,17 @@ namespace CIS341_checkpoint3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == true)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             if (_context.UserInformationItems == null)
             {
                 return Problem("Entity set 'SqliteContext.UserInformationItems'  is null.");
             }
 
-            AuthorizationStatus authStatus = _getAuthorizationStatus();
             var userInformationItem = await _context.UserInformationItems.Where(m => m.Id == id)
                 .Where(m => m.UserId == authStatus.UserId).FirstOrDefaultAsync();
             if (userInformationItem != null)
