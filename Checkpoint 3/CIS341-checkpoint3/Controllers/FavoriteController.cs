@@ -29,6 +29,11 @@ namespace CIS341_checkpoint3.Controllers
         public async Task<IActionResult> Index()
         {
             AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == true)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             var sqliteContext = _context.Favorites.Where(m => m.UserId == authStatus.UserId)
                 .Include(f => f.InformationItemSharedInformationItem)
                 .Include(f => f.User);
@@ -40,12 +45,17 @@ namespace CIS341_checkpoint3.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id, string? ReturnTo)
         {
+            AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == true)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             if (_context.Favorites == null)
             {
                 return Problem("Entity set 'SqliteContext.Favorites'  is null.");
             }
 
-            AuthorizationStatus authStatus = _getAuthorizationStatus();
             var favorite = await _context.Favorites.Where(m => m.UserId == authStatus.UserId)
                 .Where(m => m.InformationItemId == id).FirstOrDefaultAsync();
             if (favorite != null)
@@ -74,6 +84,11 @@ namespace CIS341_checkpoint3.Controllers
         public async Task<IActionResult> Create([Bind("InformationItemId")] Favorite favorite)
         {
             AuthorizationStatus authStatus = _getAuthorizationStatus();
+            if (authStatus.IsContentManager == true)
+            {
+                return RedirectToAction("Index", "Tag");
+            }
+
             favorite.UserId = authStatus.UserId;
 
             if (ModelState.IsValid)
