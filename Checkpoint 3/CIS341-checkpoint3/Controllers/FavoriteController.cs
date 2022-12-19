@@ -12,6 +12,9 @@ using CIS341_checkpoint3.Models;
 
 namespace CIS341_checkpoint3.Controllers
 {
+    /// <summary>
+    /// Controller class for accessing data in Entity 'Favorite'.
+    /// </summary>
     [Authorize]
     public class FavoriteController : Controller
     {
@@ -25,6 +28,14 @@ namespace CIS341_checkpoint3.Controllers
         }
 
         // GET: Favorites
+        /// <summary>
+        /// List Favorites associated with the logged in user.
+        /// Not accessible by content managers.
+        /// </summary>
+        /// <returns>
+        /// If a content manager: A redirection to the Tag controller Index.
+        /// On success: A view containing a List of Favorites associated with the logged in user.
+        /// </returns>
         [Route("/Favorites")]
         public async Task<IActionResult> Index()
         {
@@ -41,6 +52,16 @@ namespace CIS341_checkpoint3.Controllers
         }
 
         // POST: Favorite/Delete/5
+        /// <summary>
+        /// Remove a specific Favorite associated with the logged in user.
+        /// Not accessible by content managers.
+        /// </summary>
+        /// <param name="id">The ID of the SharedInformationItem to remove from the current user's Favorites.</param>
+        /// <param name="ReturnTo">[Optional] If set to "SharedInformationItem" the controller will return a redirect back to the SharedInformationItem rather than the Favorites listing.</param>
+        /// <returns>
+        /// If a content manager: A redirection to the Tag controller Index.
+        /// On success: A redirection back to the endpoint which initiated the request.
+        /// </returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id, string? ReturnTo)
@@ -79,6 +100,15 @@ namespace CIS341_checkpoint3.Controllers
         // POST: Favorite/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Add a SharedInformationItem to the logged in user's Favorites.
+        /// Not accessible by content managers.
+        /// </summary>
+        /// <param name="id">The ID of the SharedInformationItem to add to the current user's Favorites.</param>
+        /// <returns>
+        /// If a content manager: A redirection to the Tag controller Index.
+        /// On success: A redirection back to the SharedInformationItem.
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("InformationItemId")] Favorite favorite)
@@ -108,7 +138,13 @@ namespace CIS341_checkpoint3.Controllers
         }
 
         // GET: Favorite/Create
-        // used for login page redirect
+        /// <summary>
+        /// Used for login page redirect. So if a user clicks the button to add to favorites, but hasn't logged in yet.
+        /// This prevents redirection to a page which doesn't exist.
+        /// </summary>
+        /// <returns>
+        /// A redirection to the Tag controller Index.
+        /// </returns>
         [HttpGet]
         public async Task<IActionResult> Create()
         {

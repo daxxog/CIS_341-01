@@ -11,6 +11,9 @@ using CIS341_checkpoint3.Models;
 
 namespace CIS341_checkpoint3.Controllers
 {
+    /// <summary>
+    /// Controller class for accessing data in Entity 'TaggedInformationItems'.
+    /// </summary>
     [Authorize]
     public class TagController : Controller
     {
@@ -24,6 +27,12 @@ namespace CIS341_checkpoint3.Controllers
         }
 
         // GET: Tags
+        /// <summary>
+        /// List all the Tags, with weights attached to them (simple counting).
+        /// </summary>
+        /// <returns>
+        /// On success: A view containing a List of WeightedTagModels.
+        /// </returns>
         [Route("/Tags")]
         [AllowAnonymous]
         public async Task<IActionResult> Index()
@@ -82,6 +91,13 @@ namespace CIS341_checkpoint3.Controllers
         }
 
         // GET: Tag/turducken
+        /// <summary>
+        /// List SharedInformationItems attached to the Tag
+        /// </summary>
+        /// <param name="id">The ID (name) of the Tag.</param>
+        /// <returns>
+        /// On success: A view containing a List of SharedInformationItems.
+        /// </returns>
         [Route("/Tag/{id}")]
         [AllowAnonymous]
         public async Task<IActionResult> Details(string id)

@@ -13,6 +13,9 @@ using CIS341_checkpoint3.Data.Entities;
 
 namespace CIS341_checkpoint3.Controllers
 {
+    /// <summary>
+    /// Controller class for accessing data in Entity 'SharedInformationItem'.
+    /// </summary>
     [Authorize]
     public class SharedInformationItemController : Controller
     {
@@ -51,6 +54,12 @@ namespace CIS341_checkpoint3.Controllers
         }
 
         // GET: SharedInformationItem
+        /// <summary>
+        /// List SharedInformationItems.
+        /// </summary>
+        /// <returns>
+        /// On success: A view containing a List of SharedInformationItems.
+        /// </returns>
         [AllowAnonymous]
         public async Task<IActionResult> Index()
         {
@@ -60,6 +69,13 @@ namespace CIS341_checkpoint3.Controllers
         }
 
         // GET: SharedInformationItem/Details/5
+        /// <summary>
+        /// Get details about a specific SharedInformationItem.
+        /// </summary>
+        /// <param name="id">The ID of the SharedInformationItem.</param>
+        /// <returns>
+        /// On success: A view containing the SharedInformationItem.
+        /// </returns>
         [AllowAnonymous]
         public async Task<IActionResult> Details(long? id)
         {
@@ -86,6 +102,14 @@ namespace CIS341_checkpoint3.Controllers
         }
 
         // GET: SharedInformationItem/Create
+        /// <summary>
+        /// Display the form for creating a new SharedInformationItem.
+        /// Only accessible by content managers.
+        /// </summary>
+        /// <returns>
+        /// If not a content manager: A redirection to the Tag controller Index.
+        /// On success: A view with the containing the form to create a new SharedInformationItems.
+        /// </returns>
         public IActionResult Create()
         {
             AuthorizationStatus authStatus = _getAuthorizationStatus();
@@ -100,6 +124,15 @@ namespace CIS341_checkpoint3.Controllers
         // POST: SharedInformationItem/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Create a new SharedInformationItem.
+        /// Only accessible by content managers.
+        /// </summary>
+        /// <param name="sharedInformationItemCreateUpdate">The SharedInformationItemCreateUpdateModel to convert to a SharedInformationItem and add to the database.</param>
+        /// <returns>
+        /// If not a content manager: A redirection to the Tag controller Index.
+        /// On success: A redirection back to the SharedInformationItem listing view.
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(
@@ -126,6 +159,15 @@ namespace CIS341_checkpoint3.Controllers
         }
 
         // GET: SharedInformationItem/Edit/5
+        /// <summary>
+        /// Display the form for editing a specific SharedInformationItem.
+        /// Only accessible by content managers.
+        /// </summary>
+        /// <param name="id">The ID of the SharedInformationItem to edit.</param>
+        /// <returns>
+        /// On success: A view with the containing the form to edit a specific SharedInformationItem.
+        /// If not a content manager: A redirection to the Tag controller Index.
+        /// </returns>
         public async Task<IActionResult> Edit(long? id)
         {
             AuthorizationStatus authStatus = _getAuthorizationStatus();
@@ -152,6 +194,16 @@ namespace CIS341_checkpoint3.Controllers
         // POST: SharedInformationItem/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        /// <summary>
+        /// Edit an existing SharedInformationItem.
+        /// Only accessible by content managers.
+        /// </summary>
+        /// <param name="id">The ID of the SharedInformationItem to edit.</param>
+        /// <param name="sharedInformationItemCreateUpdate">The SharedInformationItemCreateUpdateModel to convert to a SharedInformationItem and modify in the database.</param>
+        /// <returns>
+        /// If not a content manager: A redirection to the Tag controller Index.
+        /// On success: A redirection back to the SharedInformationItem details view.
+        /// </returns>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(long id,
@@ -205,6 +257,15 @@ namespace CIS341_checkpoint3.Controllers
         }
 
         // GET: SharedInformationItem/Delete/5
+        /// <summary>
+        /// Display the confirmation message for deleting a specific SharedInformationItem.
+        /// Only accessible by content managers.
+        /// </summary>
+        /// <param name="id">The ID of the SharedInformationItem to delete.</param>
+        /// <returns>
+        /// On success: A view with the containing the confirmation message to delete a specific SharedInformationItem.
+        /// If not a content manager: A redirection to the Tag controller Index.
+        /// </returns>
         public async Task<IActionResult> Delete(long? id)
         {
             AuthorizationStatus authStatus = _getAuthorizationStatus();
@@ -229,6 +290,15 @@ namespace CIS341_checkpoint3.Controllers
         }
 
         // POST: SharedInformationItem/Delete/5
+        /// <summary>
+        /// Delete a specific SharedInformationItem.
+        /// Only accessible by content managers.
+        /// </summary>
+        /// <param name="id">The ID of the SharedInformationItem to delete.</param>
+        /// <returns>
+        /// On success: A redirection back to the SharedInformationItem listing view.
+        /// If not a content manager: A redirection to the Tag controller Index.
+        /// </returns>
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(long id)
