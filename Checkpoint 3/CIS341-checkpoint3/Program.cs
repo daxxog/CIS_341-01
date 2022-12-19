@@ -110,6 +110,24 @@ app.UseAuthorization();
 // https://learn.microsoft.com/en-us/aspnet/core/fundamentals/middleware/?view=aspnetcore-6.0
 app.UseMiddleware<IdentityMiddleware>();
 
+// Disable registration (and other account endpoints we don't want)
+// based on:
+// https://stackoverflow.com/a/65476351
+app.UseEndpoints(endpoints =>
+{
+    Action<String> disableAccountIdentityAction = (actionName) =>
+    {
+        endpoints.MapGet($"/Identity/Account/{actionName}",
+            context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+        endpoints.MapPost($"/Identity/Account/{actionName}",
+            context => Task.Factory.StartNew(() => context.Response.Redirect("/Identity/Account/Login", true, true)));
+    };
+
+    disableAccountIdentityAction("Register");
+    disableAccountIdentityAction("ForgotPassword");
+    disableAccountIdentityAction("ResendEmailConfirmation");
+});
+
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
