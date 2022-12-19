@@ -91,5 +91,13 @@ namespace CIS341_checkpoint3.Controllers
             return RedirectToAction("Details", "SharedInformationItem",
                 new RouteValueDictionary { { "Id", favorite.InformationItemId.ToString() } });
         }
+
+        // GET: Favorite/Create
+        // used for login page redirect
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return RedirectToAction("Index", "Tag");
+        }
     }
 }
